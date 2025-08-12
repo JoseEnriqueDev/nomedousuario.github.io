@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SUB-ZERO Shop</title>
+  <title>SUB-ZERO Shop - Loja Profissional</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="icon" type="image/x-icon" href="chevy.png" />
   <style>
+    /* ESTILOS BASE E VARIÁVEIS (Mantidos) */
     :root {
       --background-dark: #0a0a0a;
       --primary-blue: #007BFF;
@@ -16,369 +18,304 @@
       --text-light: #f0f0f0;
       --text-dark: #333;
       --border-light: rgba(255, 255, 255, 0.1);
+      --success-green: #28a745;
+      --danger-red: #dc3545;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'Montserrat', sans-serif;
       background: var(--background-dark);
       color: var(--text-light);
-      overflow: hidden; /* Esconde a barra de rolagem enquanto o preloader está ativo */
+      overflow-x: hidden;
     }
 
-    /* PRELOADER STYLES */
-    #preloader {
+    /* PRELOADER STYLES (Mantido) */
+    #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--background-dark); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.5s ease, visibility 0.5s ease; opacity: 1; }
+    #preloader.hidden { opacity: 0; visibility: hidden; }
+    #preloader img { width: 250px; height: auto; margin-bottom: 30px; filter: drop-shadow(0 0 20px var(--primary-blue)); animation: bounce 2s infinite alternate; }
+    @keyframes bounce { 0% { transform: translateY(0); } 100% { transform: translateY(-15px); } }
+    .progress-bar-container { width: 80%; max-width: 400px; height: 10px; background-color: rgba(255, 255, 255, 0.1); border-radius: 5px; overflow: hidden; margin-top: 20px; }
+    .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #007BFF, #00DFFF); border-radius: 5px; animation: fillProgress 2s forwards; }
+    @keyframes fillProgress { from { width: 0%; } to { width: 100%; } }
+    
+    /* ===== NOVO: MENU DE NAVEGAÇÃO PROFISSIONAL ===== */
+    .main-nav {
+      background: rgba(10, 10, 10, 0.8);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border-light);
+      padding: 0 2rem;
+      height: 70px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
-      background-color: var(--background-dark);
+      z-index: 900;
+      transition: top 0.3s;
+    }
+    .nav-logo {
+      font-weight: 900;
+      font-size: 1.5rem;
+      color: var(--text-light);
+      text-decoration: none;
+    }
+    .nav-logo .fa-fire { color: var(--primary-blue); }
+    .nav-links {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      gap: 1.5rem;
       align-items: center;
-      z-index: 9999; /* Garante que fique acima de todo o conteúdo */
-      transition: opacity 0.5s ease; /* Transição suave para desaparecer */
-      opacity: 1;
     }
-
-    #preloader.hidden {
-      opacity: 0;
-      visibility: hidden;
-    }
-
-    #preloader img {
-      width: 250px; /* Tamanho da imagem do carro no carregamento */
-      height: auto;
-      margin-bottom: 30px;
-      filter: drop-shadow(0 0 20px var(--primary-blue)); /* Sombra azul na imagem */
-      animation: bounce 2s infinite alternate; /* Adiciona uma pequena animação de "pulo" */
-    }
-
-    @keyframes bounce {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-15px); }
-    }
-
-    .progress-bar-container {
-      width: 80%;
-      max-width: 400px;
-      height: 10px;
-      background-color: rgba(255, 255, 255, 0.1);
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 700;
+      padding: 5px 10px;
       border-radius: 5px;
-      overflow: hidden;
-      margin-top: 20px;
+      transition: background-color 0.3s, color 0.3s;
     }
-
-    .progress-bar {
-      height: 100%;
-      width: 0%; /* Começa em 0% */
-      background: linear-gradient(90deg, #007BFF, #00DFFF); /* Gradiente azul para a barra */
-      border-radius: 5px;
-      animation: fillProgress 2s forwards; /* Anima a barra preenchendo */
-      transition: width 0.5s ease-out; /* Transição para o preenchimento da barra */
+    .nav-links a:hover, .nav-links a.active {
+      background-color: var(--primary-blue);
+      color: #fff;
     }
-
-    @keyframes fillProgress {
-      from { width: 0%; }
-      to { width: 100%; }
+    .cart-icon-container {
+      cursor: pointer;
+      color: var(--text-light);
+      font-size: 1.5rem;
+      position: relative;
+      transition: color 0.3s, transform 0.3s;
     }
-
-    /* Content visibility after loading */
-    body.loaded {
-      overflow: auto; /* Restaura a barra de rolagem após o carregamento */
+    .cart-icon-container:hover {
+      color: var(--primary-blue);
+      transform: scale(1.1);
     }
+    #cart-count { position: absolute; top: -8px; right: -12px; background-color: var(--primary-blue); color: var(--text-light); border-radius: 50%; padding: 2px 7px; font-size: 0.8rem; font-weight: bold; border: 2px solid var(--background-dark); }
+    .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; }
 
-    body.loaded #preloader {
-      display: none; /* Oculta o preloader completamente */
-    }
-
-    body:not(.loaded) #main-content {
-      display: none; /* Esconde o conteúdo principal até que o body tenha a classe 'loaded' */
-    }
-
-    /* HERO HEADER */
+    /* HERO HEADER (Ajustado para o novo menu) */
     header {
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      height: 60vh;
+      min-height: 100vh; /* Ocupa a tela inteira */
       padding: 2rem;
-      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('chevas123.png') no-repeat center center/cover;
+      padding-top: 70px; /* Espaçamento para o menu fixo */
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://i.imgur.com/rDAq1jS.jpeg') no-repeat center center/cover;
       color: var(--text-light);
+    }
+    .header-image { width: 150px; margin-bottom: 1rem; filter: drop-shadow(0 0 15px var(--primary-blue)); }
+    header h1 { font-size: 3rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem; }
+    header p { font-size: 1.2rem; max-width: 600px; margin-bottom: 1.5rem; }
+
+    /* SEARCH BAR (Mantido) */
+    .search-container { display: flex; gap: 10px; margin-top: 1rem; width: 100%; max-width: 400px; padding: 0 20px; justify-content: center; align-items: center; }
+    .search-container input[type="text"] { flex-grow: 1; padding: 10px 15px; border: 1px solid var(--border-light); border-radius: 8px; background-color: rgba(20, 20, 20, 0.5); color: var(--text-light); font-size: 1rem; outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+    .search-container input[type="text"]:focus { border-color: var(--primary-blue); box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); }
+    .search-container button { padding: 10px 20px; background: linear-gradient(90deg, #007BFF, #0056b3); color: var(--text-light); border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.3s ease; }
+    .search-container button:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(0, 123, 255, 0.7); filter: brightness(1.2); }
+
+    /* SEÇÕES E CONTAINER DE PRODUTOS */
+    .section {
+        padding: 6rem 2rem;
+    }
+    .section-title {
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        margin-bottom: 3rem;
+        position: relative;
+    }
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background-color: var(--primary-blue);
+        border-radius: 2px;
     }
     
-    .header-image {
-      width: 150px;
-      margin-bottom: 1rem;
-      filter: drop_shadow(0 0 15px var(--primary-blue));
+    .container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+
+    /* PRODUCT CARD (Mantido) */
+    .product { background: var(--card-background); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 15px; border: 1px solid var(--border-light); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); padding: 20px; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; justify-content: space-between; }
+    .product:hover { transform: translateY(-10px) scale(1.03); box-shadow: 0 0 25px var(--primary-blue); }
+    .product img { width: 100%; height: 200px; object-fit: contain; margin-bottom: 15px; border-radius: 10px; }
+    .product h3 { font-size: 1.1rem; color: var(--text-light); margin: 10px 0; min-height: 44px; }
+    .product .price { font-size: 1.5rem; font-weight: bold; color: var(--primary-blue); margin-bottom: 15px; }
+    .add-to-cart-btn { background: linear-gradient(90deg, #007BFF, #0056b3); color: var(--text-light); text-decoration: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; display: inline-block; border: none; cursor: pointer; transition: all 0.3s ease; width: 100%; }
+    .add-to-cart-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(0, 123, 255, 0.7); filter: brightness(1.2); }
+    .add-to-cart-btn .fa-cart-plus { margin-right: 8px; }
+
+    .pagination-controls { text-align: center; margin-top: 3rem; }
+    .pagination-btn { background: linear-gradient(90deg, #007BFF, #0056b3); color: var(--text-light); border: none; border-radius: 8px; padding: 10px 20px; font-weight: bold; font-size: 1.2rem; cursor: pointer; margin: 0 10px; transition: all 0.3s ease; }
+    .pagination-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 0 15px rgba(0, 123, 255, 0.7); filter: brightness(1.2); }
+    .pagination-btn:disabled { background: #333; color: #777; cursor: not-allowed; box-shadow: none; transform: none; filter: none; }
+    
+    /* ===== NOVA SEÇÃO: SOBRE NÓS E CONTATO ===== */
+    #about, #contact {
+        background-color: #111;
+    }
+    .about-content, .contact-content {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+        line-height: 1.8;
+    }
+    .contact-links {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+    .contact-link {
+        color: var(--text-light);
+        text-decoration: none;
+        font-size: 1.2rem;
+        transition: color 0.3s, transform 0.3s;
+    }
+    .contact-link:hover {
+        color: var(--primary-blue);
+        transform: translateY(-5px);
+    }
+    .contact-link i {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        display: block;
     }
 
-    header h1 {
-      font-size: 3rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 0.5rem;
+    /* ===== NOVO: RODAPÉ PROFISSIONAL ===== */
+    .main-footer {
+        background-color: #000;
+        color: #888;
+        padding: 4rem 2rem 2rem;
+        border-top: 1px solid var(--border-light);
     }
-
-    header p {
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin-bottom: 1.5rem; /* Adicionado margem para separar do campo de busca */
+    .footer-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        margin-bottom: 3rem;
     }
-
-    /* SEARCH BAR STYLES */
-    .search-container {
-      display: flex;
-      gap: 10px;
-      margin-top: 1rem;
-      width: 100%;
-      max-width: 400px; /* Limita a largura da barra de pesquisa */
-      padding: 0 20px; /* Garante algum padding nas laterais em telas pequenas */
-      justify-content: center;
-      align-items: center;
+    .footer-column h4 {
+        color: var(--text-light);
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
     }
-
-    .search-container input[type="text"] {
-      flex-grow: 1;
-      padding: 10px 15px;
-      border: 1px solid var(--border-light);
-      border-radius: 8px;
-      background-color: rgba(20, 20, 20, 0.5); /* Fundo semi-transparente */
-      color: var(--text-light);
-      font-size: 1rem;
-      outline: none;
-      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    .footer-column p, .footer-column a {
+        color: #888;
+        text-decoration: none;
+        line-height: 1.8;
+        display: block;
+        margin-bottom: 0.5rem;
+        transition: color 0.3s;
     }
-
-    .search-container input[type="text"]::placeholder {
-      color: rgba(240, 240, 240, 0.6);
+    .footer-column a:hover {
+        color: var(--primary-blue);
     }
-
-    .search-container input[type="text"]:focus {
-      border-color: var(--primary-blue);
-      box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+    .footer-socials {
+        display: flex;
+        gap: 1rem;
     }
-
-    .search-container button {
-      padding: 10px 20px;
-      background: linear-gradient(90deg, #007BFF, #0056b3);
-      color: var(--text-light);
-      border: none;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
+    .footer-socials a {
+        font-size: 1.5rem;
     }
-
-    .search-container button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 15px rgba(0, 123, 255, 0.7);
-      filter: brightness(1.2);
+    .footer-payments h4 { margin-top: 1.5rem; }
+    .payment-icons {
+        display: flex;
+        gap: 0.8rem;
+        font-size: 2rem;
+        color: var(--text-light);
     }
-
-    /* PRODUCT GRID */
-    .container {
-      max-width: 1200px;
-      margin: 40px auto 0; /* Margem inferior removida para dar espaço aos controles */
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 25px;
-      padding: 0 20px;
-    }
-
-    /* GLASSMORPHISM PRODUCT CARD */
-    .product {
-      background: var(--card-background);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-radius: 15px;
-      border: 1px solid var(--border-light);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-      padding: 20px;
-      text-align: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display: flex; /* Mantido como flex para alinhamento interno */
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .product:hover {
-      transform: translateY(-10px) scale(1.03);
-      box-shadow: 0 0 25px var(--primary-blue);
-    }
-
-    .product img {
-      width: 100%;
-      height: 200px;
-      object-fit: contain;
-      margin-bottom: 15px;
-      border-radius: 10px;
-    }
-
-    .product h3 {
-      font-size: 1.1rem;
-      color: var(--text-light);
-      margin: 10px 0;
-      min-height: 44px; /* Garante alinhamento */
-    }
-
-    .product .price {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--primary-blue);
-      margin-bottom: 15px;
-    }
-
-    /* MODERN CTA BUTTON */
-    .product a {
-      background: linear-gradient(90deg, #007BFF, #0056b3);
-      color: var(--text-light);
-      text-decoration: none;
-      padding: 12px 25px;
-      border-radius: 8px;
-      font-weight: bold;
-      display: inline-block;
-      border: none;
-      transition: all 0.3s ease;
-    }
-
-    .product a:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(0, 123, 255, 0.7);
-      filter: brightness(1.2);
+    .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid var(--border-light);
     }
     
-    /* === NOVOS ESTILOS PARA PAGINAÇÃO === */
-    .pagination-controls {
-      text-align: center;
-      margin: 30px 0;
-    }
+    /* CARRINHO E CHECKOUT (Mantido) */
+    .cart-modal-overlay, .checkout-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 1000; display: none; justify-content: flex-end; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
+    .cart-modal-overlay.active, .checkout-modal-overlay.active { display: flex; opacity: 1; }
+    .cart-modal, .checkout-modal { height: 100%; width: 100%; max-width: 450px; background: var(--card-background); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-left: 1px solid var(--border-light); box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5); display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+    .cart-modal-overlay.active .cart-modal, .checkout-modal-overlay.active .checkout-modal { transform: translateX(0); }
+    .checkout-modal-overlay { justify-content: center; }
+    .checkout-modal { height: auto; border-radius: 15px; border: 1px solid var(--border-light); }
+    .modal-header { padding: 20px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; }
+    .modal-header h2 { font-weight: 700; font-size: 1.5rem; }
+    .close-modal-btn { background: none; border: none; color: var(--text-light); font-size: 1.8rem; cursor: pointer; transition: color 0.3s, transform 0.3s; }
+    .close-modal-btn:hover { color: var(--primary-blue); transform: rotate(90deg); }
+    .cart-items { flex-grow: 1; overflow-y: auto; padding: 10px 20px; }
+    .cart-item { display: flex; align-items: center; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border-light); }
+    .cart-item:last-child { border-bottom: none; }
+    .cart-item img { width: 80px; height: 80px; object-fit: cover; border-radius: 8px; margin-right: 15px; }
+    .cart-item-info { flex-grow: 1; }
+    .cart-item-info h4 { font-size: 1rem; margin-bottom: 5px; }
+    .cart-item-info .price { color: var(--primary-blue); font-weight: bold; }
+    .cart-item-controls { display: flex; flex-direction: column; align-items: center; }
+    .quantity-controls { display: flex; align-items: center; margin-bottom: 10px; }
+    .quantity-btn { background: #333; border: 1px solid var(--border-light); color: var(--text-light); width: 28px; height: 28px; cursor: pointer; font-size: 1.2rem; }
+    .item-quantity { padding: 0 15px; font-size: 1.1rem; }
+    .remove-item-btn { background: none; border: none; color: var(--danger-red); cursor: pointer; font-size: 1.1rem; }
+    .remove-item-btn:hover { filter: brightness(1.3); }
+    .cart-empty-msg { text-align: center; padding: 50px 20px; font-size: 1.2rem; color: #888; }
+    .cart-empty-msg i { font-size: 3rem; display: block; margin-bottom: 20px; color: var(--primary-blue); }
+    .cart-footer, .checkout-footer { padding: 20px; border-top: 1px solid var(--border-light); }
+    .cart-total { display: flex; justify-content: space-between; font-size: 1.3rem; font-weight: bold; margin-bottom: 20px; }
+    .cart-total span:last-child { color: var(--primary-blue); }
+    .checkout-btn, .confirm-order-btn { width: 100%; padding: 15px; font-size: 1.2rem; font-weight: bold; color: var(--text-light); background: linear-gradient(90deg, var(--success-green), #218838); border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+    .checkout-btn:hover, .confirm-order-btn:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(40, 167, 69, 0.7); filter: brightness(1.1); }
+    .checkout-form { padding: 20px; }
+    .form-group { margin-bottom: 15px; }
+    .form-group label { display: block; margin-bottom: 8px; color: #ccc; }
+    .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid var(--border-light); border-radius: 8px; background-color: rgba(0, 0, 0, 0.3); color: var(--text-light); font-size: 1rem; font-family: 'Montserrat', sans-serif; outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+    .form-group input:focus, .form-group textarea:focus { border-color: var(--primary-blue); box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); }
 
-    .pagination-btn {
-      background: linear-gradient(90deg, #007BFF, #0056b3);
-      color: var(--text-light);
-      border: none;
-      border-radius: 8px;
-      padding: 10px 20px;
-      font-weight: bold;
-      font-size: 1.2rem;
-      cursor: pointer;
-      margin: 0 10px;
-      transition: all 0.3s ease;
-    }
-
-    .pagination-btn:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 0 15px rgba(0, 123, 255, 0.7);
-      filter: brightness(1.2);
-    }
-
-    .pagination-btn:disabled {
-      background: #333;
-      color: #777;
-      cursor: not-allowed;
-      box-shadow: none;
-      transform: none;
-      filter: none;
-    }
-    /* === FIM DOS NOVOS ESTILOS === */
-
-    /* FOOTER */
-    footer {
-      background: #000;
-      color: #888;
-      text-align: center;
-      padding: 25px;
-      margin-top: 40px;
-      border-top: 1px solid var(--border-light);
-    }
-
-    /* RESPONSIVENESS */
+    /* RESPONSIVIDADE (Ajustada para o novo menu) */
     @media (max-width: 768px) {
-      header h1 {
-        font-size: 2.2rem;
-      }
-      header p {
-        font-size: 1rem;
-      }
-      .product img {
-        height: 160px;
-      }
-      .search-container {
-        max-width: 300px; /* Ajusta a largura para telas menores */
-      }
-      .search-container input[type="text"],
-      .search-container button {
-        font-size: 0.9rem;
-        padding: 8px 12px;
-      }
-    }
-
-    /* NOVA MEDIA QUERY PARA CELULARES - 2 PRODUTOS POR LINHA */
-    @media (max-width: 600px) { /* Você pode ajustar este valor se quiser */
-      .container {
-        grid-template-columns: repeat(2, 1fr); /* 2 colunas de tamanho igual */
-        gap: 15px; /* Ajuste o espaçamento se necessário */
-      }
-      .product {
-        padding: 15px; /* Ajuste o padding para telas menores */
-      }
-      .product img {
-        height: 120px; /* Reduz o tamanho da imagem para caber melhor */
-      }
-      .product h3 {
-        font-size: 0.9rem; /* Reduz o tamanho da fonte do título */
-        min-height: auto; /* Remove o min-height fixo se causar quebras de layout */
-      }
-      .product .price {
-        font-size: 1.2rem; /* Reduz o tamanho da fonte do preço */
-      }
-      .product a {
-        padding: 8px 15px; /* Reduz o padding do botão */
-        font-size: 0.9rem; /* Reduz o tamanho da fonte do botão */
-      }
-    }
-
-    /* Media query adicional para telas muito pequenas, 1 produto por linha */
-    @media (max-width: 400px) {
-      .container {
-        grid-template-columns: 1fr; /* 1 coluna para telas muito pequenas */
-      }
-      .search-container {
-        flex-direction: column; /* Empilha input e botão */
-      }
-      .search-container button {
-        width: 100%; /* Botão ocupa largura total */
-        margin-top: 10px; /* Espaço entre input e botão */
-      }
+      header h1 { font-size: 2.2rem; }
+      .nav-links { position: fixed; top: 70px; left: -100%; width: 100%; height: calc(100vh - 70px); background: #0a0a0a; flex-direction: column; justify-content: center; gap: 2rem; transition: left 0.3s ease-in-out; }
+      .nav-links.active { left: 0; }
+      .menu-toggle { display: block; }
+      .nav-links a { font-size: 1.5rem; }
     }
   </style>
 </head>
 <body>
 
   <div id="preloader">
-    <img src="josi123.png" alt="Carregando Chevette Azul"> 
-    <div class="progress-bar-container">
-      <div class="progress-bar"></div>
-    </div>
+    <img src="josi123.png" alt="Carregando Chevette Azul">
+    <div class="progress-bar-container"><div class="progress-bar"></div></div>
   </div>
 
+  <nav class="main-nav" id="mainNav">
+    <a href="#" class="nav-logo"><i class="fas fa-fire"></i> SUB-ZERO</a>
+    <div class="nav-links" id="navLinks">
+        <a href="#">Início</a>
+        <a href="#products">Produtos</a>
+        <a href="#about">Sobre</a>
+        <a href="#contact">Contato</a>
+        <div class="cart-icon-container" id="cartIcon">
+            <i class="fas fa-shopping-bag"></i>
+            <span id="cart-count">0</span>
+        </div>
+    </div>
+    <div class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></div>
+  </nav>
+
   <div id="main-content">
-    <header>
+    <header id="home">
       <img src="chevette.png" alt="Logo de um Chevette" class="header-image">
       <h1>SUB-ZERO SHOP</h1>
       <p>Os melhores acessórios de performance e estética para seu Chevette.</p>
@@ -389,218 +326,273 @@
       </div>
     </header>
 
-    <div class="container" id="productContainer">
-      <div class="product">
-        <img src="https://http2.mlstatic.com/D_NQ_NP_2X_858099-MLB81959850369_012025-F-volante-esportivo-camurca-racing-drift-arrancada-circuito.webp" alt="Volante de Drift">
-        <h3>Volante de Drift, preto camurça</h3>
-        <div class="price">R$ 479,90</div>
-        <a href="https://www.mercadolivre.com.br/seu-link-afiliado" target="_blank">Comprar agora</a>
-      </div>
+    <section id="products" class="section">
+        <h2 class="section-title">Nossos Produtos</h2>
+        <div class="container" id="productContainer">
+          <div class="product" data-id="1" data-name="Volante de Drift, preto camurça" data-price="479.90" data-image="https://http2.mlstatic.com/D_NQ_NP_2X_858099-MLB81959850369_012025-F-volante-esportivo-camurca-racing-drift-arrancada-circuito.webp">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_2X_858099-MLB81959850369_012025-F-volante-esportivo-camurca-racing-drift-arrancada-circuito.webp" alt="Volante de Drift">
+            <h3>Volante de Drift, preto camurça</h3>
+            <div class="price">R$ 479,90</div>
+            <button class="add-to-cart-btn"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button>
+          </div>
+          <div class="product" data-id="2" data-name="Cubo para volante 70mm" data-price="112.90" data-image="https://http2.mlstatic.com/D_NQ_NP_2X_634011-MLB72344349450_102023-F-cubo-curto-volante-chevette-p-momo-isot-import-70mmfuros.webp">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_2X_634011-MLB72344349450_102023-F-cubo-curto-volante-chevette-p-momo-isot-import-70mmfuros.webp" alt="Cubo para Volante">
+            <h3>Cubo para volante 70mm</h3>
+            <div class="price">R$ 112,90</div>
+            <button class="add-to-cart-btn"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button>
+          </div>
+          <div class="product" data-id="3" data-name="Polia Regulável Do Comando" data-price="289.00" data-image="https://http2.mlstatic.com/D_NQ_NP_2X_972347-MLB76252530634_052024-F-polia-regulavel-do-comando-chevette-em-aluminio-unique-pr.webp">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_2X_972347-MLB76252530634_052024-F-polia-regulavel-do-comando-chevette-em-aluminio-unique-pr.webp" alt="Polia Regulável">
+            <h3>Polia Regulável Do Comando</h3>
+            <div class="price">R$ 289,00</div>
+            <button class="add-to-cart-btn"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button>
+          </div>
+          <div class="product" data-id="4" data-name="Reservatorio De Água Inox Chevette" data-price="499.90" data-image="https://http2.mlstatic.com/D_NQ_NP_2X_958510-MLB79078305080_092024-F-reservatorio-de-agua-chevette-a-inox-ctampa-aluminio-brind.webp">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_2X_958510-MLB79078305080_092024-F-reservatorio-de-agua-chevette-a-inox-ctampa-aluminio-brind.webp" alt="Reservatório de Água">
+            <h3>Reservatorio De Água Inox Chevette</h3>
+            <div class="price">R$ 499,90</div>
+            <button class="add-to-cart-btn"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button>
+          </div>
+          <div class="product" data-id="5" data-name="Seta Âmbar Chevette 83 a 93 (Par)" data-price="56.50" data-image="https://http2.mlstatic.com/D_NQ_NP_894966-MLB74000409736_012024-O.webp">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_894966-MLB74000409736_012024-O.webp" alt="Seta Chevette">
+            <h3>Seta Âmbar Chevette 83 a 93 (Par)</h3>
+            <div class="price">R$ 56,50</div>
+            <button class="add-to-cart-btn"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button>
+          </div>
+          <div class="product" data-id="6" data-name="Friso Cromado Para-choque 7 metros" data-price="62.90" data-image="https://http2.mlstatic.com/D_NQ_NP_2X_984870-MLB31073610706_062019-F-kit-friso-parachoque-chevette-sl-sle-8394-cromado-7-metros.webp">
+            <img src="https://http2.mlstatic.com/D_NQ_NP_2X_984870-MLB31073610706_062019-F-kit-friso-parachoque-chevette-sl-sle-8394-cromado-7-metros.webp" alt="Friso para-choque">
+            <h3>Friso Cromado Para-choque 7 metros</h3>
+            <div class="price">R$ 62,90</div>
+            <button class="add-to-cart-btn"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button>
+          </div>
+        </div>
+        
+        <div class="pagination-controls">
+            <button id="prevBtn" class="pagination-btn">‹</button>
+            <button id="nextBtn" class="pagination-btn">›</button>
+        </div>
+    </section>
 
-      <div class="product">
-        <img src="https://http2.mlstatic.com/D_NQ_NP_2X_634011-MLB72344349450_102023-F-cubo-curto-volante-chevette-p-momo-isot-import-70mmfuros.webp" alt="Cubo para Volante">
-        <h3>Cubo para volante 70mm</h3>
-        <div class="price">R$ 112,90</div>
-        <a href="https://www.mercadolivre.com.br/seu-link-afiliado" target="_blank">Comprar agora</a>
-      </div>
+    <section id="about" class="section">
+        <h2 class="section-title">Sobre Nós</h2>
+        <div class="about-content">
+            <p>A SUB-ZERO Shop nasceu da pura paixão por carros, especialmente pelo ícone brasileiro, o Chevette. Somos mais do que uma loja: somos entusiastas dedicados a fornecer as melhores peças de performance e estética para outros apaixonados como nós. Nossa missão é ajudar você a construir o projeto dos seus sonhos, com produtos de qualidade e atendimento especializado.</p>
+        </div>
+    </section>
 
-      <div class="product">
-        <img src="https://http2.mlstatic.com/D_NQ_NP_2X_972347-MLB76252530634_052024-F-polia-regulavel-do-comando-chevette-em-aluminio-unique-pr.webp" alt="Polia Regulável">
-        <h3>Polia Regulável Do Comando</h3>
-        <div class="price">R$ 289,00</div>
-        <a href="https://www.mercadolivre.com.br/seu-link-afiliado" target="_blank">Comprar agora</a>
-      </div>
-      
-      <div class="product">
-        <img src="https://http2.mlstatic.com/D_NQ_NP_2X_958510-MLB79078305080_092024-F-reservatorio-de-agua-chevette-a-inox-ctampa-aluminio-brind.webp" alt="Reservatório de Água">
-        <h3>Reservatorio De Água Inox Chevette</h3>
-        <div class="price">R$ 499,90</div>
-        <a href="https://www.mercadolivre.com.br/seu-link-afiliado" target="_blank">Comprar agora</a>
-      </div>
+    <section id="contact" class="section">
+        <h2 class="section-title">Fale Conosco</h2>
+        <div class="contact-content">
+            <p>Tem alguma dúvida sobre um produto ou precisa de ajuda com seu projeto? Nossa equipe está pronta para ajudar. Entre em contato através dos nossos canais oficiais!</p>
+            <div class="contact-links">
+                <a href="https://wa.me/5511999998888" target="_blank" class="contact-link">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
+                </a>
+                <a href="mailto:contato@subzeroshop.com" class="contact-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>E-mail</span>
+                </a>
+                <a href="https://instagram.com/subzeroshop" target="_blank" class="contact-link">
+                    <i class="fab fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
+            </div>
+        </div>
+    </section>
 
-      <div class="product">
-        <img src="https://http2.mlstatic.com/D_NQ_NP_894966-MLB74000409736_012024-O.webp" alt="Seta Chevette">
-        <h3>Seta Âmbar Chevette 83 a 93 (Par)</h3>
-        <div class="price">R$ 56,50</div>
-        <a href="https://www.mercadolivre.com.br/seu-link-afiliado" target="_blank">Comprar agora</a>
-      </div>
-
-      <div class="product">
-        <img src="https://http2.mlstatic.com/D_NQ_NP_2X_984870-MLB31073610706_062019-F-kit-friso-parachoque-chevette-sl-sle-8394-cromado-7-metros.webp" alt="Friso para-choque">
-        <h3>Friso Cromado Para-choque 7 metros</h3>
-        <div class="price">R$ 62,90</div>
-        <a href="https://www.mercadolivre.com.br/seu-link-afiliado" target="_blank">Comprar agora</a>
-      </div>
-
-      <div class="product">
-        <img src="https://http2.mlstatic.com/D_NQ_NP_2X_903765-MLB79892274450_102024-F-kit-amortecedor-cap-chevette-chevy-marajo-1983-84-a-92-1993.webp" alt="Amortecedor de Capô">
-        <h3>Kit Amortecedor Capô Chevette 83 a 94</h3>
-        <div class="price">R$ 139,00</div>
-        <a href="https://www.mercadolivre.com.br/seu-link-afiliado" target="_blank">Comprar agora</a>
-      </div>
-      
-      <div class="product">
-        <img src="https://http2.mlstatic.com/D_NQ_NP_2X_740288-MLB73388968635_122023-F-par-friso-teto-borracho-uno-2-e-4-portas-2004-a-2013.webp" alt="Bigodinho">
-        <h3>Bigodinho para o chevette</h3>
-        <div class="price">R$ 49,99</div>
-        <a href="https://www.mercadolivre.com.br/seu-link-afiliado" target="_blank">Comprar agora</a>
-      </div>
-
-      <div class="product">
-        <img src="https://http2.mlstatic.com/D_NQ_NP_2X_885890-MLB72760877947_112023-F-chave-boto-liga-desliga-2-posicoes-c-capa-verm-tipo-caca.webp" alt="Botão tipo caça">
-        <h3>Botão com tampa, para backfire</h3>
-        <div class="price">R$ 29,99</div>
-        <a href="https://www.mercadolivre.com.br/seu-link-afiliado" target="_blank">Comprar agora</a>
-      </div>
-
-      <div class="product">
-        <img src="https://http2.mlstatic.com/D_NQ_NP_915050-MLB82848805712_032025-O.webp" alt="Backfire">
-        <h3>Backfire para 1 saída</h3>
-        <div class="price">R$ 599,99</div>
-        <a href="https://www.mercadolivre.com.br/seu-link-afiliado" target="_blank">Comprar agora</a>
-      </div>
-
-      <div class="product">
-        <img src="https://http2.mlstatic.com/D_NQ_NP_2X_832553-MLB72340092748_102023-F-suporte-wideband-ft-nano-cinzeiro-chevrolet-chevette-8294.webp" alt="Suporte Wideband">
-        <h3>Suporte para Wideband</h3>
-        <div class="price">R$ 79,99</div>
-        <a href="https://www.mercadolivre.com.br/seu-link-afiliado" target="_blank">Comprar agora</a>
-      </div>
-
-      <div class="product">
-        <img src="https://http2.mlstatic.com/D_NQ_NP_2X_775280-MLB76345128653_052024-F-sup-manometro-1-din-radio-chevette-marajo.webp" alt="Suporte Manômetro">
-        <h3>Suporte para 3 manômetros</h3>
-        <div class="price">R$ 28,99</div>
-        <a href="https://www.mercadolivre.com.br/seu-link-afiliado" target="_blank">Comprar agora</a>
-      </div>
-
-      <div class="product">
-        <img src="https://http2.mlstatic.com/D_NQ_NP_2X_615311-MLB73239419024_122023-F-adesivo-chevrolet-chevette-sl-tarja-borracho.webp" alt="Adesivo Chevette SL">
-        <h3>Adesivo Chevette Sl</h3>
-        <div class="price">R$ 29,99</div>
-        <a href="https://www.mercadolivre.com.br/seu-link-afiliado" target="_blank">Comprar agora</a>
-      </div>
-
-      <div class="product">
-        <img src="https://http2.mlstatic.com/D_NQ_NP_2X_824996-MLB53041755956_122022-F-manta-termica-escapamento-termotape-titanium-5-metro-e-6-zip.webp" alt="Fita Térmica">
-        <h3>Fita Térmica para escapamento</h3>
-        <div class="price">R$ 68,99</div>
-        <a href="https://www.mercadolivre.com.br/seu-link-afiliado" target="_blank">Comprar agora</a>
-      </div>
-      <div class="product">
-        <img src="https://http2.mlstatic.com/D_NQ_NP_2X_939681-MLB83796012949_042025-F-placa-mercosul-decorativa-de-aluminio-personalizada-carro.webp" alt="Fita Térmica">
-        <h3>Placa decorativa</h3>
-        <div class="price">R$ 45,99</div>
-        <a href="https://www.mercadolivre.com.br/seu-link-afiliado" target="_blank">Comprar agora</a>
-      </div>
-
-    </div>
-    
-    <div class="pagination-controls">
-        <button id="prevBtn" class="pagination-btn">‹</button>
-        <button id="nextBtn" class="pagination-btn">›</button>
-    </div>
-
-    <footer>
-      <p>© 2025 - SUB-ZERO Shop | Todos os direitos reservados</p>
-    </footer>
   </div> 
 
-  <script>
-    // === SCRIPT ANTIGO DO PRELOADER (INTOCADO) ===
-    window.addEventListener('load', function() {
-      const preloader = document.getElementById('preloader');
-      const mainContent = document.getElementById('main-content');
-      
-      setTimeout(() => {
-        preloader.classList.add('hidden');
-        document.body.classList.add('loaded');
-        document.body.style.overflow = 'auto';
-      }, 2000);
-    });
+  <footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-column">
+            <h4><i class="fas fa-fire"></i> SUB-ZERO Shop</h4>
+            <p>Acelerando sonhos com as melhores peças para o seu Chevette. Qualidade, performance e estilo em um só lugar.</p>
+        </div>
+        <div class="footer-column">
+            <h4>Links Rápidos</h4>
+            <a href="#">Início</a>
+            <a href="#products">Produtos</a>
+            <a href="#about">Sobre Nós</a>
+            <a href="#contact">Contato</a>
+        </div>
+        <div class="footer-column">
+            <h4>Siga-nos</h4>
+            <div class="footer-socials">
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+            <div class="footer-payments">
+                <h4>Pagamento Seguro</h4>
+                <div class="payment-icons">
+                    <i class="fab fa-cc-pix"></i>
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fas fa-barcode"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2025 - SUB-ZERO Shop | Todos os direitos reservados</p>
+    </div>
+  </footer>
 
-    // === NOVO SCRIPT PARA BUSCA E PAGINAÇÃO INTEGRADAS ===
+  <div class="cart-modal-overlay" id="cartModalOverlay">
+    <div class="cart-modal"><div class="modal-header"><h2><i class="fas fa-shopping-bag"></i> Seu Carrinho</h2><button class="close-modal-btn" id="closeCartBtn">&times;</button></div><div class="cart-items" id="cartItemsContainer"></div><div class="cart-footer"><div class="cart-total"><span>Total:</span><span id="cartTotal">R$ 0,00</span></div><button class="checkout-btn" id="checkoutBtn"><i class="fas fa-check"></i> Finalizar Compra</button></div></div>
+  </div>
+  <div class="checkout-modal-overlay" id="checkoutModalOverlay">
+    <div class="checkout-modal"><div class="modal-header"><h2><i class="fas fa-shipping-fast"></i> Detalhes da Entrega</h2><button class="close-modal-btn" id="closeCheckoutBtn">&times;</button></div><div class="checkout-form"><div class="form-group"><label for="customerName">Seu Nome Completo</label><input type="text" id="customerName" placeholder="Digite seu nome" required></div><div class="form-group"><label for="customerAddress">Endereço de Entrega</label><textarea id="customerAddress" rows="4" placeholder="Ex: Rua Exemplo, 123, Bairro, Cidade - Estado, CEP: 00000-000" required></textarea></div></div><div class="checkout-footer"><button class="confirm-order-btn" id="confirmOrderBtn"><i class="fab fa-whatsapp"></i> Confirmar Pedido via WhatsApp</button></div></div>
+  </div>
+
+
+  <script>
+    // SCRIPT JAVASCRIPT COMPLETO (Incluindo lógica do menu mobile)
     document.addEventListener('DOMContentLoaded', function() {
-      const searchInput = document.getElementById('searchInput');
-      const searchButton = document.getElementById('searchButton');
+      // PRELOADER
+      const preloader = document.getElementById('preloader');
+      window.addEventListener('load', () => {
+        setTimeout(() => preloader.classList.add('hidden'), 500);
+      });
+      
+      // ===== SELETORES DE ELEMENTOS (Carrinho, etc.) =====
       const productContainer = document.getElementById('productContainer');
+      const cartIcon = document.getElementById('cartIcon');
+      const cartCount = document.getElementById('cart-count');
+      const cartModalOverlay = document.getElementById('cartModalOverlay');
+      const closeCartBtn = document.getElementById('closeCartBtn');
+      const cartItemsContainer = document.getElementById('cartItemsContainer');
+      const cartTotalEl = document.getElementById('cartTotal');
+      const checkoutBtn = document.getElementById('checkoutBtn');
+      const checkoutModalOverlay = document.getElementById('checkoutModalOverlay');
+      const closeCheckoutBtn = document.getElementById('closeCheckoutBtn');
+      const confirmOrderBtn = document.getElementById('confirmOrderBtn');
+
+      // ===== SELETORES DO MENU NOVO =====
+      const menuToggle = document.getElementById('menuToggle');
+      const navLinks = document.getElementById('navLinks');
+
+      // ===== LÓGICA DO MENU MOBILE =====
+      menuToggle.addEventListener('click', () => {
+          navLinks.classList.toggle('active');
+      });
+      // Fecha o menu ao clicar em um link
+      navLinks.addEventListener('click', (e) => {
+          if (e.target.tagName === 'A') {
+              navLinks.classList.remove('active');
+          }
+      });
+
+      // ===== ESTADO DO CARRINHO =====
+      let cart = JSON.parse(localStorage.getItem('subzero_cart')) || [];
+
+      // ===== LÓGICA DO CARRINHO (Mantida) =====
+      const saveCart = () => localStorage.setItem('subzero_cart', JSON.stringify(cart));
+      const formatCurrency = value => `R$ ${value.toFixed(2).replace('.', ',')}`;
+      
+      const updateCartUI = () => {
+        cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+        cartItemsContainer.innerHTML = '';
+        if (cart.length === 0) {
+            cartItemsContainer.innerHTML = `<div class="cart-empty-msg"><i class="fas fa-box-open"></i>Seu carrinho está vazio.</div>`;
+            checkoutBtn.style.display = 'none';
+        } else {
+            checkoutBtn.style.display = 'block';
+            cart.forEach(item => {
+                const itemEl = document.createElement('div');
+                itemEl.className = 'cart-item';
+                itemEl.innerHTML = `<img src="${item.image}" alt="${item.name}"><div class="cart-item-info"><h4>${item.name}</h4><div class="price">${formatCurrency(item.price)}</div></div><div class="cart-item-controls"><div class="quantity-controls"><button class="quantity-btn decrease-qty" data-id="${item.id}">-</button><span class="item-quantity">${item.quantity}</span><button class="quantity-btn increase-qty" data-id="${item.id}">+</button></div><button class="remove-item-btn" data-id="${item.id}"><i class="fas fa-trash-alt"></i> Remover</button></div>`;
+                cartItemsContainer.appendChild(itemEl);
+            });
+        }
+        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        cartTotalEl.textContent = formatCurrency(total);
+      };
+
+      const addToCart = (product) => {
+        const existingItem = cart.find(item => item.id === product.id);
+        if (existingItem) existingItem.quantity++;
+        else cart.push({ ...product, quantity: 1 });
+        saveCart(); updateCartUI();
+      };
+
+      const changeQuantity = (productId, newQuantity) => {
+        const item = cart.find(item => item.id === productId);
+        if(item) {
+            item.quantity = newQuantity;
+            if (item.quantity <= 0) cart = cart.filter(i => i.id !== productId);
+            saveCart(); updateCartUI();
+        }
+      };
+      
+      productContainer.addEventListener('click', e => {
+        if (e.target.closest('.add-to-cart-btn')) {
+          const productEl = e.target.closest('.product');
+          addToCart({ id: productEl.dataset.id, name: productEl.dataset.name, price: parseFloat(productEl.dataset.price), image: productEl.dataset.image });
+        }
+      });
+      
+      cartItemsContainer.addEventListener('click', e => {
+        const id = e.target.dataset.id;
+        if (!id) return;
+        const item = cart.find(i => i.id === id);
+        if (e.target.classList.contains('increase-qty')) changeQuantity(id, item.quantity + 1);
+        if (e.target.classList.contains('decrease-qty')) changeQuantity(id, item.quantity - 1);
+        if (e.target.closest('.remove-item-btn')) changeQuantity(id, 0);
+      });
+
+      // Abrir/Fechar Modais
+      cartIcon.addEventListener('click', () => cartModalOverlay.classList.add('active'));
+      closeCartBtn.addEventListener('click', () => cartModalOverlay.classList.remove('active'));
+      cartModalOverlay.addEventListener('click', e => { if (e.target === cartModalOverlay) cartModalOverlay.classList.remove('active'); });
+      checkoutBtn.addEventListener('click', () => { cartModalOverlay.classList.remove('active'); checkoutModalOverlay.classList.add('active'); });
+      closeCheckoutBtn.addEventListener('click', () => checkoutModalOverlay.classList.remove('active'));
+      checkoutModalOverlay.addEventListener('click', e => { if (e.target === checkoutModalOverlay) checkoutModalOverlay.classList.remove('active'); });
+
+      // Lógica de Finalizar Pedido via WhatsApp
+      confirmOrderBtn.addEventListener('click', () => {
+        const name = document.getElementById('customerName').value.trim();
+        const address = document.getElementById('customerAddress').value.trim();
+        if (!name || !address) { alert('Por favor, preencha seu nome e endereço.'); return; }
+        const yourWhatsAppNumber = '5511999998888'; // <-- TROQUE PELO SEU NÚMERO
+        let message = `Olá, SUB-ZERO Shop! Gostaria de fazer um pedido:\n\n`;
+        cart.forEach(item => { message += `*${item.quantity}x* - ${item.name} (${formatCurrency(item.price * item.quantity)})\n`; });
+        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        message += `\n*Total do Pedido:* ${formatCurrency(total)}\n\n*Dados para Entrega:*\nNome: ${name}\nEndereço: ${address}`;
+        const whatsappUrl = `https://wa.me/${yourWhatsAppNumber}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+        cart = []; saveCart(); updateCartUI(); checkoutModalOverlay.classList.remove('active');
+      });
+
+      // LÓGICA DE BUSCA E PAGINAÇÃO (Mantida)
+      const searchInput = document.getElementById('searchInput');
       const allProducts = Array.from(productContainer.querySelectorAll('.product'));
       const prevBtn = document.getElementById('prevBtn');
       const nextBtn = document.getElementById('nextBtn');
-      
-      const itemsPerPage = 6;
-      let currentPage = 1;
+      const itemsPerPage = 6; let currentPage = 1;
 
       function displayProducts() {
-        // 1. Filtra os produtos com base no campo de busca
         const searchTerm = searchInput.value.toLowerCase();
-        const filteredProducts = allProducts.filter(product => {
-          const productName = product.querySelector('h3').textContent.toLowerCase();
-          return productName.includes(searchTerm);
-        });
-
-        // 2. Calcula o total de páginas com base nos produtos filtrados
+        const filteredProducts = allProducts.filter(p => p.querySelector('h3').textContent.toLowerCase().includes(searchTerm));
         const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
-        
-        // Garante que a página atual não fique fora dos limites após uma busca
-        if (currentPage > totalPages) {
-            currentPage = 1;
-        }
-        if (currentPage < 1) {
-            currentPage = 1;
-        }
-
-        // 3. Habilita/desabilita os botões de navegação
+        if (currentPage > totalPages) currentPage = totalPages || 1;
         prevBtn.disabled = currentPage === 1;
         nextBtn.disabled = currentPage >= totalPages;
-
-        // 4. Define quais produtos devem ser exibidos na página atual
         const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        
-        // Pega a "fatia" de produtos a serem mostrados
-        const productsToShow = filteredProducts.slice(startIndex, endIndex);
-
-        // 5. Atualiza a visibilidade de TODOS os produtos no DOM
-        allProducts.forEach(product => {
-          // Se o produto está na lista para mostrar, exibe. Senão, esconde.
-          if (productsToShow.includes(product)) {
-            product.style.display = 'flex';
-          } else {
-            product.style.display = 'none';
-          }
-        });
+        const productsToShow = filteredProducts.slice(startIndex, startIndex + itemsPerPage);
+        allProducts.forEach(p => p.style.display = productsToShow.includes(p) ? 'flex' : 'none');
       }
+      searchInput.addEventListener('input', () => { currentPage = 1; displayProducts(); });
+      nextBtn.addEventListener('click', () => { if(currentPage < Math.ceil(allProducts.length/itemsPerPage)) { currentPage++; displayProducts(); }});
+      prevBtn.addEventListener('click', () => { if(currentPage > 1) { currentPage--; displayProducts(); }});
 
-      // Eventos dos botões e da busca
-      searchButton.addEventListener('click', () => {
-        currentPage = 1; // Reseta para a primeira página ao pesquisar
-        displayProducts();
-      });
-
-      searchInput.addEventListener('keyup', (event) => {
-        // Pesquisa ao digitar e também ao pressionar Enter
-        if (event.key === 'Enter') {
-            searchButton.click();
-        }
-        currentPage = 1; // Reseta para a primeira página ao digitar
-        displayProducts();
-      });
-
-      nextBtn.addEventListener('click', () => {
-        currentPage++;
-        displayProducts();
-      });
-
-      prevBtn.addEventListener('click', () => {
-        currentPage--;
-        displayProducts();
-      });
-
-      // Exibição inicial dos produtos ao carregar a página
+      // INICIALIZAÇÃO
+      updateCartUI();
       displayProducts();
     });
   </script>
 
 </body>
 </html>
+
