@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="icon" type="image/x-icon" href="chevy.png" />
   <style>
-    /* ESTILOS BASE E VARIÁVEIS (Mantidos) */
     :root {
       --background-dark: #0a0a0a;
       --primary-blue: #007BFF;
@@ -31,7 +30,7 @@
       overflow-x: hidden;
     }
 
-    /* PRELOADER STYLES (Mantido) */
+    /* PRELOADER STYLES */
     #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--background-dark); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.5s ease, visibility 0.5s ease; opacity: 1; }
     #preloader.hidden { opacity: 0; visibility: hidden; }
     #preloader img { width: 250px; height: auto; margin-bottom: 30px; filter: drop-shadow(0 0 20px var(--primary-blue)); animation: bounce 2s infinite alternate; }
@@ -40,80 +39,25 @@
     .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #007BFF, #00DFFF); border-radius: 5px; animation: fillProgress 2s forwards; }
     @keyframes fillProgress { from { width: 0%; } to { width: 100%; } }
     
-    /* ===== NOVO: MENU DE NAVEGAÇÃO PROFISSIONAL ===== */
-    .main-nav {
-      background: rgba(10, 10, 10, 0.8);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border-light);
-      padding: 0 2rem;
-      height: 70px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 900;
-      transition: top 0.3s;
-    }
-    .nav-logo {
-      font-weight: 900;
-      font-size: 1.5rem;
-      color: var(--text-light);
-      text-decoration: none;
-    }
+    /* MENU DE NAVEGAÇÃO */
+    .main-nav { background: rgba(10, 10, 10, 0.8); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-light); padding: 0 2rem; height: 70px; display: flex; justify-content: space-between; align-items: center; position: fixed; top: 0; left: 0; width: 100%; z-index: 900; transition: top 0.3s; }
+    .nav-logo { font-weight: 900; font-size: 1.5rem; color: var(--text-light); text-decoration: none; }
     .nav-logo .fa-fire { color: var(--primary-blue); }
-    .nav-links {
-      display: flex;
-      gap: 1.5rem;
-      align-items: center;
-    }
-    .nav-links a {
-      color: var(--text-light);
-      text-decoration: none;
-      font-weight: 700;
-      padding: 5px 10px;
-      border-radius: 5px;
-      transition: background-color 0.3s, color 0.3s;
-    }
-    .nav-links a:hover, .nav-links a.active {
-      background-color: var(--primary-blue);
-      color: #fff;
-    }
-    .cart-icon-container {
-      cursor: pointer;
-      color: var(--text-light);
-      font-size: 1.5rem;
-      position: relative;
-      transition: color 0.3s, transform 0.3s;
-    }
-    .cart-icon-container:hover {
-      color: var(--primary-blue);
-      transform: scale(1.1);
-    }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { color: var(--text-light); text-decoration: none; font-weight: 700; padding: 5px 10px; border-radius: 5px; transition: background-color 0.3s, color 0.3s; }
+    .nav-links a:hover, .nav-links a.active { background-color: var(--primary-blue); color: #fff; }
+    .cart-icon-container { cursor: pointer; color: var(--text-light); font-size: 1.5rem; position: relative; transition: color 0.3s, transform 0.3s; }
+    .cart-icon-container:hover { color: var(--primary-blue); transform: scale(1.1); }
     #cart-count { position: absolute; top: -8px; right: -12px; background-color: var(--primary-blue); color: var(--text-light); border-radius: 50%; padding: 2px 7px; font-size: 0.8rem; font-weight: bold; border: 2px solid var(--background-dark); }
     .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; }
 
-    /* HERO HEADER (Ajustado para o novo menu) */
-    header {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      min-height: 100vh; /* Ocupa a tela inteira */
-      padding: 2rem;
-      padding-top: 70px; /* Espaçamento para o menu fixo */
-      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://i.imgur.com/rDAq1jS.jpeg') no-repeat center center/cover;
-      color: var(--text-light);
-    }
+    /* HERO HEADER */
+    header { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; min-height: 100vh; padding: 2rem; padding-top: 70px; background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://i.imgur.com/rDAq1jS.jpeg') no-repeat center center/cover; color: var(--text-light); }
     .header-image { width: 150px; margin-bottom: 1rem; filter: drop-shadow(0 0 15px var(--primary-blue)); }
     header h1 { font-size: 3rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0.5rem; }
     header p { font-size: 1.2rem; max-width: 600px; margin-bottom: 1.5rem; }
 
-    /* SEARCH BAR (Mantido) */
+    /* SEARCH BAR */
     .search-container { display: flex; gap: 10px; margin-top: 1rem; width: 100%; max-width: 400px; padding: 0 20px; justify-content: center; align-items: center; }
     .search-container input[type="text"] { flex-grow: 1; padding: 10px 15px; border: 1px solid var(--border-light); border-radius: 8px; background-color: rgba(20, 20, 20, 0.5); color: var(--text-light); font-size: 1rem; outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
     .search-container input[type="text"]:focus { border-color: var(--primary-blue); box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); }
@@ -121,137 +65,50 @@
     .search-container button:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(0, 123, 255, 0.7); filter: brightness(1.2); }
 
     /* SEÇÕES E CONTAINER DE PRODUTOS */
-    .section {
-        padding: 6rem 2rem;
-    }
-    .section-title {
-        text-align: center;
-        font-size: 2.5rem;
-        font-weight: 900;
-        text-transform: uppercase;
-        margin-bottom: 3rem;
-        position: relative;
-    }
-    .section-title::after {
-        content: '';
-        position: absolute;
-        bottom: -10px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80px;
-        height: 4px;
-        background-color: var(--primary-blue);
-        border-radius: 2px;
-    }
-    
+    .section { padding: 6rem 2rem; }
+    .section-title { text-align: center; font-size: 2.5rem; font-weight: 900; text-transform: uppercase; margin-bottom: 3rem; position: relative; }
+    .section-title::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 80px; height: 4px; background-color: var(--primary-blue); border-radius: 2px; }
     .container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
 
-    /* PRODUCT CARD (Mantido) */
-    .product { background: var(--card-background); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 15px; border: 1px solid var(--border-light); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); padding: 20px; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column; justify-content: space-between; }
+    /* PRODUCT CARD */
+    .product { background: var(--card-background); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 15px; border: 1px solid var(--border-light); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37); padding: 20px; text-align: center; transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.4s ease; display: flex; flex-direction: column; justify-content: space-between; }
     .product:hover { transform: translateY(-10px) scale(1.03); box-shadow: 0 0 25px var(--primary-blue); }
+    .product.hidden { display: none; }
     .product img { width: 100%; height: 200px; object-fit: contain; margin-bottom: 15px; border-radius: 10px; }
     .product h3 { font-size: 1.1rem; color: var(--text-light); margin: 10px 0; min-height: 44px; }
     .product .price { font-size: 1.5rem; font-weight: bold; color: var(--primary-blue); margin-bottom: 15px; }
     .add-to-cart-btn { background: linear-gradient(90deg, #007BFF, #0056b3); color: var(--text-light); text-decoration: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; display: inline-block; border: none; cursor: pointer; transition: all 0.3s ease; width: 100%; }
     .add-to-cart-btn:hover { transform: scale(1.05); box-shadow: 0 0 15px rgba(0, 123, 255, 0.7); filter: brightness(1.2); }
     .add-to-cart-btn .fa-cart-plus { margin-right: 8px; }
-
-    .pagination-controls { text-align: center; margin-top: 3rem; }
-    .pagination-btn { background: linear-gradient(90deg, #007BFF, #0056b3); color: var(--text-light); border: none; border-radius: 8px; padding: 10px 20px; font-weight: bold; font-size: 1.2rem; cursor: pointer; margin: 0 10px; transition: all 0.3s ease; }
-    .pagination-btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 0 15px rgba(0, 123, 255, 0.7); filter: brightness(1.2); }
-    .pagination-btn:disabled { background: #333; color: #777; cursor: not-allowed; box-shadow: none; transform: none; filter: none; }
+    #no-results-message { display: none; text-align: center; width: 100%; grid-column: 1 / -1; font-size: 1.5rem; color: #888; padding: 4rem 0; }
     
-    /* ===== NOVA SEÇÃO: SOBRE NÓS E CONTATO ===== */
-    #about, #contact {
-        background-color: #111;
-    }
-    .about-content, .contact-content {
-        max-width: 800px;
-        margin: 0 auto;
-        text-align: center;
-        line-height: 1.8;
-    }
-    .contact-links {
-        display: flex;
-        justify-content: center;
-        gap: 2rem;
-        margin-top: 2rem;
-    }
-    .contact-link {
-        color: var(--text-light);
-        text-decoration: none;
-        font-size: 1.2rem;
-        transition: color 0.3s, transform 0.3s;
-    }
-    .contact-link:hover {
-        color: var(--primary-blue);
-        transform: translateY(-5px);
-    }
-    .contact-link i {
-        font-size: 2.5rem;
-        margin-bottom: 0.5rem;
-        display: block;
-    }
+    /* SEÇÃO: SOBRE NÓS E CONTATO */
+    #about, #contact { background-color: #111; }
+    .about-content, .contact-content { max-width: 800px; margin: 0 auto; text-align: center; line-height: 1.8; }
+    .contact-links { display: flex; justify-content: center; gap: 2rem; margin-top: 2rem; }
+    .contact-link { color: var(--text-light); text-decoration: none; font-size: 1.2rem; transition: color 0.3s, transform 0.3s; }
+    .contact-link:hover { color: var(--primary-blue); transform: translateY(-5px); }
+    .contact-link i { font-size: 2.5rem; margin-bottom: 0.5rem; display: block; }
 
-    /* ===== NOVO: RODAPÉ PROFISSIONAL ===== */
-    .main-footer {
-        background-color: #000;
-        color: #888;
-        padding: 4rem 2rem 2rem;
-        border-top: 1px solid var(--border-light);
-    }
-    .footer-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
-        margin-bottom: 3rem;
-    }
-    .footer-column h4 {
-        color: var(--text-light);
-        font-size: 1.2rem;
-        margin-bottom: 1rem;
-        text-transform: uppercase;
-    }
-    .footer-column p, .footer-column a {
-        color: #888;
-        text-decoration: none;
-        line-height: 1.8;
-        display: block;
-        margin-bottom: 0.5rem;
-        transition: color 0.3s;
-    }
-    .footer-column a:hover {
-        color: var(--primary-blue);
-    }
-    .footer-socials {
-        display: flex;
-        gap: 1rem;
-    }
-    .footer-socials a {
-        font-size: 1.5rem;
-    }
+    /* RODAPÉ PROFISSIONAL */
+    .main-footer { background-color: #000; color: #888; padding: 4rem 2rem 2rem; border-top: 1px solid var(--border-light); }
+    .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; margin-bottom: 3rem; }
+    .footer-column h4 { color: var(--text-light); font-size: 1.2rem; margin-bottom: 1rem; text-transform: uppercase; }
+    .footer-column p, .footer-column a { color: #888; text-decoration: none; line-height: 1.8; display: block; margin-bottom: 0.5rem; transition: color 0.3s; }
+    .footer-column a:hover { color: var(--primary-blue); }
+    .footer-socials { display: flex; gap: 1rem; }
+    .footer-socials a { font-size: 1.5rem; }
     .footer-payments h4 { margin-top: 1.5rem; }
-    .payment-icons {
-        display: flex;
-        gap: 0.8rem;
-        font-size: 2rem;
-        color: var(--text-light);
-    }
-    .footer-bottom {
-        text-align: center;
-        padding-top: 2rem;
-        border-top: 1px solid var(--border-light);
-    }
+    .payment-icons { display: flex; gap: 0.8rem; font-size: 2rem; color: var(--text-light); }
+    .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid var(--border-light); }
     
-    /* CARRINHO E CHECKOUT (Mantido) */
-    .cart-modal-overlay, .checkout-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 1000; display: none; justify-content: flex-end; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
+    /* CARRINHO E CHECKOUT */
+    .cart-modal-overlay, .checkout-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); z-index: 1000; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease; }
     .cart-modal-overlay.active, .checkout-modal-overlay.active { display: flex; opacity: 1; }
-    .cart-modal, .checkout-modal { height: 100%; width: 100%; max-width: 450px; background: var(--card-background); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-left: 1px solid var(--border-light); box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5); display: flex; flex-direction: column; transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-    .cart-modal-overlay.active .cart-modal, .checkout-modal-overlay.active .checkout-modal { transform: translateX(0); }
-    .checkout-modal-overlay { justify-content: center; }
-    .checkout-modal { height: auto; border-radius: 15px; border: 1px solid var(--border-light); }
+    .cart-modal, .checkout-modal { height: 100%; width: 100%; max-width: 450px; background: var(--card-background); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5); display: flex; flex-direction: column; }
+    .cart-modal-overlay { justify-content: flex-end; }
+    .checkout-modal-overlay.active .checkout-modal { transform: scale(1); opacity: 1; }
+    .checkout-modal { transform: scale(0.95); opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease; max-width: 500px; height: auto; border-radius: 15px; border: 1px solid var(--border-light); }
     .modal-header { padding: 20px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; }
     .modal-header h2 { font-weight: 700; font-size: 1.5rem; }
     .close-modal-btn { background: none; border: none; color: var(--text-light); font-size: 1.8rem; cursor: pointer; transition: color 0.3s, transform 0.3s; }
@@ -263,200 +120,178 @@
     .cart-item-info { flex-grow: 1; }
     .cart-item-info h4 { font-size: 1rem; margin-bottom: 5px; }
     .cart-item-info .price { color: var(--primary-blue); font-weight: bold; }
-    .cart-item-controls { display: flex; flex-direction: column; align-items: center; }
-    .quantity-controls { display: flex; align-items: center; margin-bottom: 10px; }
-    .quantity-btn { background: #333; border: 1px solid var(--border-light); color: var(--text-light); width: 28px; height: 28px; cursor: pointer; font-size: 1.2rem; }
+    .cart-item-controls { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .quantity-controls { display: flex; align-items: center; }
+    .quantity-btn { background: #333; border: 1px solid var(--border-light); color: var(--text-light); width: 28px; height: 28px; cursor: pointer; font-size: 1.2rem; border-radius: 4px; }
     .item-quantity { padding: 0 15px; font-size: 1.1rem; }
-    .remove-item-btn { background: none; border: none; color: var(--danger-red); cursor: pointer; font-size: 1.1rem; }
-    .remove-item-btn:hover { filter: brightness(1.3); }
+    .remove-item-btn { background: none; border: none; color: var(--danger-red); cursor: pointer; font-size: 1.1rem; transition: color 0.2s; }
+    .remove-item-btn:hover { filter: brightness(1.3); color: #ff4d64; }
     .cart-empty-msg { text-align: center; padding: 50px 20px; font-size: 1.2rem; color: #888; }
     .cart-empty-msg i { font-size: 3rem; display: block; margin-bottom: 20px; color: var(--primary-blue); }
-    .cart-footer, .checkout-footer { padding: 20px; border-top: 1px solid var(--border-light); }
+    .cart-footer { padding: 20px; border-top: 1px solid var(--border-light); }
     .cart-total { display: flex; justify-content: space-between; font-size: 1.3rem; font-weight: bold; margin-bottom: 20px; }
     .cart-total span:last-child { color: var(--primary-blue); }
-    .checkout-btn, .confirm-order-btn { width: 100%; padding: 15px; font-size: 1.2rem; font-weight: bold; color: var(--text-light); background: linear-gradient(90deg, var(--success-green), #218838); border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
-    .checkout-btn:hover, .confirm-order-btn:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(40, 167, 69, 0.7); filter: brightness(1.1); }
-    .checkout-form { padding: 20px; }
-    .form-group { margin-bottom: 15px; }
+    .checkout-btn { width: 100%; padding: 15px; font-size: 1.2rem; font-weight: bold; color: var(--text-light); background: linear-gradient(90deg, var(--success-green), #218838); border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+    .checkout-btn:hover:not(:disabled) { transform: scale(1.02); box-shadow: 0 0 15px rgba(40, 167, 69, 0.7); filter: brightness(1.1); }
+    .checkout-btn:disabled { background: #333; color: #777; cursor: not-allowed; transform: none; box-shadow: none; filter: none;}
+    
+    /* CHECKOUT em etapas */
+    #checkout-container { padding: 20px; }
+    #checkout-container > div { display: none; }
+    #checkout-container > div.active { display: block; }
+    .checkout-step-title { font-size: 1.2rem; font-weight: bold; color: var(--primary-blue); margin-bottom: 15px; }
+    .form-group { margin-bottom: 15px; position: relative; }
     .form-group label { display: block; margin-bottom: 8px; color: #ccc; }
     .form-group input, .form-group textarea { width: 100%; padding: 12px; border: 1px solid var(--border-light); border-radius: 8px; background-color: rgba(0, 0, 0, 0.3); color: var(--text-light); font-size: 1rem; font-family: 'Montserrat', sans-serif; outline: none; transition: border-color 0.3s ease, box-shadow 0.3s ease; }
     .form-group input:focus, .form-group textarea:focus { border-color: var(--primary-blue); box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); }
+    .checkout-buttons { display: flex; justify-content: space-between; gap: 10px; margin-top: 20px; }
+    .checkout-buttons .btn { width: 100%; padding: 15px; font-size: 1.1rem; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+    .checkout-buttons .btn:disabled { background: #333; color: #777; cursor: not-allowed; transform: none; box-shadow: none; }
+    .checkout-buttons .btn-next { background: linear-gradient(90deg, var(--primary-blue), #0056b3); color: var(--text-light); }
+    .checkout-buttons .btn-next:hover:not(:disabled) { transform: scale(1.02); box-shadow: 0 0 15px rgba(0, 123, 255, 0.7); }
+    .checkout-buttons .btn-prev { background-color: #333; color: #ccc; }
+    .checkout-buttons .btn-prev:hover { background-color: #555; }
+    .payment-options { display: flex; flex-direction: column; gap: 15px; }
+    .payment-option-btn { background: #1a1a1a; border: 1px solid var(--border-light); padding: 15px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 15px; transition: background-color 0.3s, border-color 0.3s; }
+    .payment-option-btn:hover { background-color: #2a2a2a; border-color: var(--primary-blue); }
+    .payment-option-btn.selected { border-color: var(--primary-blue); box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); }
+    .payment-option-btn .payment-icon { font-size: 2rem; color: var(--primary-blue); }
+    .payment-option-btn .payment-info { flex-grow: 1; }
+    .payment-option-btn h4 { margin: 0; font-size: 1.1rem; color: var(--primary-blue); }
+    .payment-option-btn p { margin: 0; font-size: 0.9rem; color: #aaa; }
+    
+    /* TELA DE CONFIRMAÇÃO */
+    #step-confirmation { text-align: center; }
+    #step-confirmation h3 { font-size: 2rem; color: var(--success-green); margin-bottom: 10px; }
+    #step-confirmation p { font-size: 1.1rem; margin-bottom: 20px; }
+    .final-order-details { text-align: left; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-light); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+    .final-order-details p { margin: 5px 0; }
+    .whatsapp-confirm-btn { background: linear-gradient(90deg, #25D366, #128C7E); color: white; border: none; padding: 15px 30px; font-size: 1.2rem; font-weight: bold; border-radius: 8px; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; width: 100%; }
+    .whatsapp-confirm-btn:hover { transform: scale(1.02); box-shadow: 0 0 15px rgba(37, 211, 102, 0.7); }
+    .spinner { border: 4px solid rgba(255, 255, 255, 0.3); border-top: 4px solid var(--primary-blue); border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto 20px; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-    /* RESPONSIVIDADE (Ajustada para o novo menu) */
+    /* ANIMAÇÃO E ESTILOS QR CODE */
+    .pix-details-container { background-color: rgba(0,0,0,0.2); border: 1px solid var(--border-light); border-radius: 8px; padding: 20px; margin-top: 20px; text-align: center; display: none; }
+    .pix-details-container.visible { display: block; animation: reveal 0.5s ease-out forwards; }
+    @keyframes reveal { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+    .pix-qr-code { max-width: 200px; width: 100%; border-radius: 8px; margin-bottom: 15px; }
+    .pix-details-container h5 { margin-top: 10px; margin-bottom: 10px; font-size: 1rem; color: #ccc; }
+    .pix-copy-paste { display: flex; }
+    .pix-copy-paste input { flex-grow: 1; border-top-right-radius: 0; border-bottom-right-radius: 0; }
+    .pix-copy-paste button { background-color: var(--primary-blue); color: var(--text-light); border: none; padding: 0 15px; border-top-right-radius: 8px; border-bottom-right-radius: 8px; cursor: pointer; font-size: 1rem; }
+    #copyPixBtn-feedback { color: var(--success-green); font-size: 0.9rem; margin-top: 5px; height: 1em; }
+
+    /* ESTILOS FORMULÁRIO DE CARTÃO DE CRÉDITO */
+    #credit-card-form { display: none; margin-top: 20px; border: 1px solid var(--border-light); border-radius: 8px; padding: 20px; background-color: rgba(0,0,0,0.2); }
+    .card-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); font-size: 1.5rem; color: #ccc; }
+    .form-group-flex { display: flex; gap: 15px; }
+    .form-group-flex .form-group { flex: 1; }
+    
+    /* ESTILOS PARA A NOTIFICAÇÃO */
+    #notification {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%) translateY(150px);
+        background-color: var(--success-green);
+        color: var(--text-light);
+        padding: 16px 30px;
+        border-radius: 8px;
+        z-index: 2000;
+        font-weight: bold;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        opacity: 0;
+        visibility: hidden;
+        transition: transform 0.4s ease-out, opacity 0.4s ease-out, visibility 0s 0.4s;
+    }
+    #notification.show {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+        visibility: visible;
+        transition: transform 0.4s ease-out, opacity 0.4s ease-out;
+    }
+
+    /* RESPONSIVIDADE */
     @media (max-width: 768px) {
       header h1 { font-size: 2.2rem; }
       .nav-links { position: fixed; top: 70px; left: -100%; width: 100%; height: calc(100vh - 70px); background: #0a0a0a; flex-direction: column; justify-content: center; gap: 2rem; transition: left 0.3s ease-in-out; }
       .nav-links.active { left: 0; }
       .menu-toggle { display: block; }
       .nav-links a { font-size: 1.5rem; }
+      .cart-modal { transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+      .cart-modal-overlay.active .cart-modal { transform: translateX(0); }
     }
   </style>
 </head>
 <body>
 
-  <div id="preloader">
-    <img src="josi123.png" alt="Carregando Chevette Azul">
-    <div class="progress-bar-container"><div class="progress-bar"></div></div>
-  </div>
-
-  <nav class="main-nav" id="mainNav">
-    <a href="#" class="nav-logo"><i class="fas fa-fire"></i> SUB-ZERO</a>
-    <div class="nav-links" id="navLinks">
-        <a href="#">Início</a>
-        <a href="#products">Produtos</a>
-        <a href="#about">Sobre</a>
-        <a href="#contact">Contato</a>
-        <div class="cart-icon-container" id="cartIcon">
-            <i class="fas fa-shopping-bag"></i>
-            <span id="cart-count">0</span>
-        </div>
-    </div>
-    <div class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></div>
-  </nav>
-
+  <div id="preloader"><img src="josi123.png" alt="Carregando Chevette Azul"><div class="progress-bar-container"><div class="progress-bar"></div></div></div>
+  <nav class="main-nav" id="mainNav"><a href="#" class="nav-logo"><i class="fas fa-fire"></i> SUB-ZERO</a><div class="nav-links" id="navLinks"><a href="#">Início</a><a href="#products">Produtos</a><a href="#about">Sobre</a><a href="#contact">Contato</a><div class="cart-icon-container" id="cartIcon"><i class="fas fa-shopping-bag"></i><span id="cart-count">0</span></div></div><div class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></div></nav>
+  
   <div id="main-content">
-    <header id="home">
-      <img src="chevette.png" alt="Logo de um Chevette" class="header-image">
-      <h1>SUB-ZERO SHOP</h1>
-      <p>Os melhores acessórios de performance e estética para seu Chevette.</p>
-      
-      <div class="search-container">
-        <input type="text" id="searchInput" placeholder="Buscar peças...">
-        <button id="searchButton">Pesquisar</button>
-      </div>
-    </header>
-
-    <section id="products" class="section">
-        <h2 class="section-title">Nossos Produtos</h2>
-        <div class="container" id="productContainer">
-          <div class="product" data-id="1" data-name="Volante de Drift, preto camurça" data-price="479.90" data-image="https://http2.mlstatic.com/D_NQ_NP_2X_858099-MLB81959850369_012025-F-volante-esportivo-camurca-racing-drift-arrancada-circuito.webp">
-            <img src="https://http2.mlstatic.com/D_NQ_NP_2X_858099-MLB81959850369_012025-F-volante-esportivo-camurca-racing-drift-arrancada-circuito.webp" alt="Volante de Drift">
-            <h3>Volante de Drift, preto camurça</h3>
-            <div class="price">R$ 479,90</div>
-            <button class="add-to-cart-btn"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button>
-          </div>
-          <div class="product" data-id="2" data-name="Cubo para volante 70mm" data-price="112.90" data-image="https://http2.mlstatic.com/D_NQ_NP_2X_634011-MLB72344349450_102023-F-cubo-curto-volante-chevette-p-momo-isot-import-70mmfuros.webp">
-            <img src="https://http2.mlstatic.com/D_NQ_NP_2X_634011-MLB72344349450_102023-F-cubo-curto-volante-chevette-p-momo-isot-import-70mmfuros.webp" alt="Cubo para Volante">
-            <h3>Cubo para volante 70mm</h3>
-            <div class="price">R$ 112,90</div>
-            <button class="add-to-cart-btn"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button>
-          </div>
-          <div class="product" data-id="3" data-name="Polia Regulável Do Comando" data-price="289.00" data-image="https://http2.mlstatic.com/D_NQ_NP_2X_972347-MLB76252530634_052024-F-polia-regulavel-do-comando-chevette-em-aluminio-unique-pr.webp">
-            <img src="https://http2.mlstatic.com/D_NQ_NP_2X_972347-MLB76252530634_052024-F-polia-regulavel-do-comando-chevette-em-aluminio-unique-pr.webp" alt="Polia Regulável">
-            <h3>Polia Regulável Do Comando</h3>
-            <div class="price">R$ 289,00</div>
-            <button class="add-to-cart-btn"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button>
-          </div>
-          <div class="product" data-id="4" data-name="Reservatorio De Água Inox Chevette" data-price="499.90" data-image="https://http2.mlstatic.com/D_NQ_NP_2X_958510-MLB79078305080_092024-F-reservatorio-de-agua-chevette-a-inox-ctampa-aluminio-brind.webp">
-            <img src="https://http2.mlstatic.com/D_NQ_NP_2X_958510-MLB79078305080_092024-F-reservatorio-de-agua-chevette-a-inox-ctampa-aluminio-brind.webp" alt="Reservatório de Água">
-            <h3>Reservatorio De Água Inox Chevette</h3>
-            <div class="price">R$ 499,90</div>
-            <button class="add-to-cart-btn"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button>
-          </div>
-          <div class="product" data-id="5" data-name="Seta Âmbar Chevette 83 a 93 (Par)" data-price="56.50" data-image="https://http2.mlstatic.com/D_NQ_NP_894966-MLB74000409736_012024-O.webp">
-            <img src="https://http2.mlstatic.com/D_NQ_NP_894966-MLB74000409736_012024-O.webp" alt="Seta Chevette">
-            <h3>Seta Âmbar Chevette 83 a 93 (Par)</h3>
-            <div class="price">R$ 56,50</div>
-            <button class="add-to-cart-btn"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button>
-          </div>
-          <div class="product" data-id="6" data-name="Friso Cromado Para-choque 7 metros" data-price="62.90" data-image="https://http2.mlstatic.com/D_NQ_NP_2X_984870-MLB31073610706_062019-F-kit-friso-parachoque-chevette-sl-sle-8394-cromado-7-metros.webp">
-            <img src="https://http2.mlstatic.com/D_NQ_NP_2X_984870-MLB31073610706_062019-F-kit-friso-parachoque-chevette-sl-sle-8394-cromado-7-metros.webp" alt="Friso para-choque">
-            <h3>Friso Cromado Para-choque 7 metros</h3>
-            <div class="price">R$ 62,90</div>
-            <button class="add-to-cart-btn"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button>
-          </div>
-        </div>
-        
-        <div class="pagination-controls">
-            <button id="prevBtn" class="pagination-btn">‹</button>
-            <button id="nextBtn" class="pagination-btn">›</button>
-        </div>
-    </section>
-
-    <section id="about" class="section">
-        <h2 class="section-title">Sobre Nós</h2>
-        <div class="about-content">
-            <p>A SUB-ZERO Shop nasceu da pura paixão por carros, especialmente pelo ícone brasileiro, o Chevette. Somos mais do que uma loja: somos entusiastas dedicados a fornecer as melhores peças de performance e estética para outros apaixonados como nós. Nossa missão é ajudar você a construir o projeto dos seus sonhos, com produtos de qualidade e atendimento especializado.</p>
-        </div>
-    </section>
-
-    <section id="contact" class="section">
-        <h2 class="section-title">Fale Conosco</h2>
-        <div class="contact-content">
-            <p>Tem alguma dúvida sobre um produto ou precisa de ajuda com seu projeto? Nossa equipe está pronta para ajudar. Entre em contato através dos nossos canais oficiais!</p>
-            <div class="contact-links">
-                <a href="https://wa.me/5511999998888" target="_blank" class="contact-link">
-                    <i class="fab fa-whatsapp"></i>
-                    <span>WhatsApp</span>
-                </a>
-                <a href="mailto:contato@subzeroshop.com" class="contact-link">
-                    <i class="fas fa-envelope"></i>
-                    <span>E-mail</span>
-                </a>
-                <a href="https://instagram.com/subzeroshop" target="_blank" class="contact-link">
-                    <i class="fab fa-instagram"></i>
-                    <span>Instagram</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-  </div> 
-
-  <footer class="main-footer">
-    <div class="footer-container">
-        <div class="footer-column">
-            <h4><i class="fas fa-fire"></i> SUB-ZERO Shop</h4>
-            <p>Acelerando sonhos com as melhores peças para o seu Chevette. Qualidade, performance e estilo em um só lugar.</p>
-        </div>
-        <div class="footer-column">
-            <h4>Links Rápidos</h4>
-            <a href="#">Início</a>
-            <a href="#products">Produtos</a>
-            <a href="#about">Sobre Nós</a>
-            <a href="#contact">Contato</a>
-        </div>
-        <div class="footer-column">
-            <h4>Siga-nos</h4>
-            <div class="footer-socials">
-                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
-            </div>
-            <div class="footer-payments">
-                <h4>Pagamento Seguro</h4>
-                <div class="payment-icons">
-                    <i class="fab fa-cc-pix"></i>
-                    <i class="fab fa-cc-visa"></i>
-                    <i class="fab fa-cc-mastercard"></i>
-                    <i class="fas fa-barcode"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <p>© 2025 - SUB-ZERO Shop | Todos os direitos reservados</p>
-    </div>
-  </footer>
-
-  <div class="cart-modal-overlay" id="cartModalOverlay">
-    <div class="cart-modal"><div class="modal-header"><h2><i class="fas fa-shopping-bag"></i> Seu Carrinho</h2><button class="close-modal-btn" id="closeCartBtn">&times;</button></div><div class="cart-items" id="cartItemsContainer"></div><div class="cart-footer"><div class="cart-total"><span>Total:</span><span id="cartTotal">R$ 0,00</span></div><button class="checkout-btn" id="checkoutBtn"><i class="fas fa-check"></i> Finalizar Compra</button></div></div>
+      <header id="home"><img src="chevette.png" alt="Logo de um Chevette" class="header-image"><h1>SUB-ZERO SHOP</h1><p>Os melhores acessórios de performance e estética para seu Chevette.</p><div class="search-container"><input type="text" id="searchInput" placeholder="Buscar peças..."><button id="searchButton"><i class="fas fa-search"></i></button></div></header>
+      <section id="products" class="section"><h2 class="section-title">Nossos Produtos</h2><div class="container" id="productContainer"><div class="product" data-id="1" data-name="Volante de Drift, preto camurça" data-price="479.90" data-image="https://http2.mlstatic.com/D_NQ_NP_2X_858099-MLB81959850369_012025-F-volante-esportivo-camurca-racing-drift-arrancada-circuito.webp"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_858099-MLB81959850369_012025-F-volante-esportivo-camurca-racing-drift-arrancada-circuito.webp" alt="Volante de Drift"><h3>Volante de Drift, preto camurça</h3><div class="price">R$ 479,90</div><button class="add-to-cart-btn"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button></div><div class="product" data-id="2" data-name="Cubo para volante 70mm" data-price="112.90" data-image="https://http2.mlstatic.com/D_NQ_NP_2X_634011-MLB72344349450_102023-F-cubo-curto-volante-chevette-p-momo-isot-import-70mmfuros.webp"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_634011-MLB72344349450_102023-F-cubo-curto-volante-chevette-p-momo-isot-import-70mmfuros.webp" alt="Cubo para Volante"><h3>Cubo para volante 70mm</h3><div class="price">R$ 112,90</div><button class="add-to-cart-btn"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button></div><div class="product" data-id="3" data-name="Polia Regulável Do Comando" data-price="289.00" data-image="https://http2.mlstatic.com/D_NQ_NP_2X_972347-MLB76252530634_052024-F-polia-regulavel-do-comando-chevette-em-aluminio-unique-pr.webp"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_972347-MLB76252530634_052024-F-polia-regulavel-do-comando-chevette-em-aluminio-unique-pr.webp" alt="Polia Regulável"><h3>Polia Regulável Do Comando</h3><div class="price">R$ 289,00</div><button class="add-to-cart-btn"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button></div><div class="product" data-id="4" data-name="Reservatorio De Água Inox Chevette" data-price="499.90" data-image="https://http2.mlstatic.com/D_NQ_NP_2X_958510-MLB79078305080_092024-F-reservatorio-de-agua-chevette-a-inox-ctampa-aluminio-brind.webp"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_958510-MLB79078305080_092024-F-reservatorio-de-agua-chevette-a-inox-ctampa-aluminio-brind.webp" alt="Reservatório de Água"><h3>Reservatorio De Água Inox Chevette</h3><div class="price">R$ 499,90</div><button class="add-to-cart-btn"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button></div><div class="product" data-id="5" data-name="Seta Âmbar Chevette 83 a 93 (Par)" data-price="56.50" data-image="https://http2.mlstatic.com/D_NQ_NP_894966-MLB74000409736_012024-O.webp"><img src="https://http2.mlstatic.com/D_NQ_NP_894966-MLB74000409736_012024-O.webp" alt="Seta Chevette"><h3>Seta Âmbar Chevette 83 a 93 (Par)</h3><div class="price">R$ 56,50</div><button class="add-to-cart-btn"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button></div><div class="product" data-id="6" data-name="Friso Cromado Para-choque 7 metros" data-price="62.90" data-image="https://http2.mlstatic.com/D_NQ_NP_2X_984870-MLB31073610706_062019-F-kit-friso-parachoque-chevette-sl-sle-8394-cromado-7-metros.webp"><img src="https://http2.mlstatic.com/D_NQ_NP_2X_984870-MLB31073610706_062019-F-kit-friso-parachoque-chevette-sl-sle-8394-cromado-7-metros.webp" alt="Friso para-choque"><h3>Friso Cromado Para-choque 7 metros</h3><div class="price">R$ 62,90</div><button class="add-to-cart-btn"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button></div><div id="no-results-message">Nenhum produto encontrado.</div></div></section>
+      <section id="about" class="section"><h2 class="section-title">Sobre Nós</h2><div class="about-content"><p>A SUB-ZERO Shop nasceu da pura paixão por carros, especialmente pelo ícone brasileiro, o Chevette. Somos mais do que uma loja: somos entusiastas dedicados a fornecer as melhores peças de performance e estética para outros apaixonados como nós. Nossa missão é ajudar você a construir o projeto dos seus sonhos, com produtos de qualidade e atendimento especializado.</p></div></section>
+      <section id="contact" class="section"><h2 class="section-title">Fale Conosco</h2><div class="contact-content"><p>Tem alguma dúvida sobre um produto ou precisa de ajuda com seu projeto? Nossa equipe está pronta para ajudar. Entre em contato através dos nossos canais oficiais!</p><div class="contact-links"><a href="https://wa.me/5511999998888" target="_blank" class="contact-link"><i class="fab fa-whatsapp"></i><span>WhatsApp</span></a><a href="mailto:contato@subzeroshop.com" class="contact-link"><i class="fas fa-envelope"></i><span>E-mail</span></a><a href="https://instagram.com/subzeroshop" target="_blank" class="contact-link"><i class="fab fa-instagram"></i><span>Instagram</span></a></div></div></section>
   </div>
+
+  <footer class="main-footer"><div class="footer-container"><div class="footer-column"><h4><i class="fas fa-fire"></i> SUB-ZERO Shop</h4><p>Acelerando sonhos com as melhores peças para o seu Chevette. Qualidade, performance e estilo em um só lugar.</p></div><div class="footer-column"><h4>Links Rápidos</h4><a href="#">Início</a><a href="#products">Produtos</a><a href="#about">Sobre Nós</a><a href="#contact">Contato</a></div><div class="footer-column"><h4>Siga-nos</h4><div class="footer-socials"><a href="#" target="_blank"><i class="fab fa-instagram"></i></a><a href="#" target="_blank"><i class="fab fa-facebook"></i></a><a href="#" target="_blank"><i class="fab fa-youtube"></i></a></div><div class="footer-payments"><h4>Pagamento Seguro</h4><div class="payment-icons"><i class="fab fa-cc-pix"></i><i class="fab fa-cc-visa"></i><i class="fab fa-cc-mastercard"></i><i class="fas fa-barcode"></i></div></div></div></div><div class="footer-bottom"><p>© 2025 - SUB-ZERO Shop | Todos os direitos reservados</p></div></footer>
+
+  <div class="cart-modal-overlay" id="cartModalOverlay"><div class="cart-modal"><div class="modal-header"><h2><i class="fas fa-shopping-bag"></i> Seu Carrinho</h2><button class="close-modal-btn" id="closeCartBtn">&times;</button></div><div class="cart-items" id="cartItemsContainer"></div><div class="cart-footer"><div class="cart-total"><span>Total:</span><span id="cartTotal">R$ 0,00</span></div><button class="checkout-btn" id="checkoutBtn" disabled><i class="fas fa-credit-card"></i> Ir para Pagamento</button></div></div></div>
+
   <div class="checkout-modal-overlay" id="checkoutModalOverlay">
-    <div class="checkout-modal"><div class="modal-header"><h2><i class="fas fa-shipping-fast"></i> Detalhes da Entrega</h2><button class="close-modal-btn" id="closeCheckoutBtn">&times;</button></div><div class="checkout-form"><div class="form-group"><label for="customerName">Seu Nome Completo</label><input type="text" id="customerName" placeholder="Digite seu nome" required></div><div class="form-group"><label for="customerAddress">Endereço de Entrega</label><textarea id="customerAddress" rows="4" placeholder="Ex: Rua Exemplo, 123, Bairro, Cidade - Estado, CEP: 00000-000" required></textarea></div></div><div class="checkout-footer"><button class="confirm-order-btn" id="confirmOrderBtn"><i class="fab fa-whatsapp"></i> Confirmar Pedido via WhatsApp</button></div></div>
+      <div class="checkout-modal">
+        <div class="modal-header">
+          <h2><i class="fas fa-shipping-fast"></i> Finalizar Compra</h2>
+          <button class="close-modal-btn" id="closeCheckoutBtn">&times;</button>
+        </div>
+        <div id="checkout-container">
+          <div id="step-shipping" class="active">
+            <h3 class="checkout-step-title">1. Informações de Envio</h3>
+            <div class="form-group"><label for="customerName">Seu Nome Completo</label><input type="text" id="customerName" placeholder="Digite seu nome" required></div>
+            <div class="form-group"><label for="customerAddress">Endereço de Entrega</label><textarea id="customerAddress" rows="4" placeholder="Ex: Rua Exemplo, 123, Bairro, Cidade - Estado, CEP: 00000-000" required></textarea></div>
+            <div class="checkout-buttons"><button class="btn btn-next" id="goToPaymentBtn">Continuar para Pagamento</button></div>
+          </div>
+          <div id="step-payment">
+            <h3 class="checkout-step-title">2. Escolha o Pagamento</h3>
+            <div class="payment-options">
+              <button class="payment-option-btn" data-payment-method="pix"><i class="fab fa-cc-pix payment-icon"></i><div class="payment-info"><h4>PIX</h4><p>Pagamento instantâneo. Envio imediato.</p></div></button>
+              <button class="payment-option-btn" data-payment-method="credit-card"><i class="fas fa-credit-card payment-icon"></i><div class="payment-info"><h4>Cartão de Crédito</h4><p>Em até 12x. Apenas para demonstração.</p></div></button>
+              <button class="payment-option-btn" data-payment-method="boleto"><i class="fas fa-barcode payment-icon"></i><div class="payment-info"><h4>Boleto Bancário</h4><p>Pagamento em até 3 dias úteis. Fictício.</p></div></button>
+            </div>
+            <div id="pix-details" class="pix-details-container">
+              <h5>Pague com PIX</h5><p style="font-size: 0.9rem; color: #aaa;">Escaneie o QR Code abaixo.</p><img src="https://i.imgur.com/g826a56.png" alt="QR Code PIX Fictício" class="pix-qr-code"><h5>Ou use o PIX Copia e Cola:</h5>
+              <div class="pix-copy-paste"><input type="text" id="pixCode" value="000201265802BR5913NOMEEXEMPLO6009SAOPAULO62070503***6304E6D2" readonly><button id="copyPixBtn"><i class="fas fa-copy"></i></button></div><div id="copyPixBtn-feedback"></div>
+            </div>
+            <div id="credit-card-form">
+              <div class="form-group"><label for="cardNumber">Número do Cartão</label><input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19"></div>
+              <div class="form-group"><label for="cardName">Nome no Cartão</label><input type="text" id="cardName" placeholder="Como impresso no cartão"></div>
+              <div class="form-group-flex">
+                <div class="form-group"><label for="cardExpiry">Validade</label><input type="text" id="cardExpiry" placeholder="MM/AA" maxlength="5"></div>
+                <div class="form-group"><label for="cardCvv">CVV</label><input type="text" id="cardCvv" placeholder="123" maxlength="4"></div>
+              </div>
+            </div>
+            <div class="checkout-buttons"><button class="btn btn-prev" id="backToShippingBtn">Voltar</button><button class="btn btn-next" id="completeOrderBtn" disabled>Finalizar Pedido</button></div>
+          </div>
+          <div id="step-confirmation">
+            <h3 class="checkout-step-title">3. Confirmação do Pedido</h3>
+            <div id="checkout-processing"><div class="spinner"></div><p>Processando seu pedido...</p></div>
+            <div id="checkout-success" style="display: none;"><i class="fas fa-check-circle" style="font-size: 3rem; color: var(--success-green); margin-bottom: 20px;"></i><h3>Pedido Confirmado!</h3><p>Obrigado por sua compra! Você pode confirmar os detalhes no WhatsApp.</p><div class="final-order-details"><h4>Resumo do Pedido:</h4><p><strong>Nome:</strong> <span id="finalName"></span></p><p><strong>Endereço:</strong> <span id="finalAddress"></span></p><p><strong>Pagamento:</strong> <span id="finalPaymentMethod"></span></p></div><button class="whatsapp-confirm-btn" id="confirmOrderBtn"><i class="fab fa-whatsapp"></i> Enviar Detalhes para o WhatsApp</button></div>
+          </div>
+        </div>
+      </div>
   </div>
-
+  
+  <div id="notification"></div>
 
   <script>
-    // SCRIPT JAVASCRIPT COMPLETO (Incluindo lógica do menu mobile)
     document.addEventListener('DOMContentLoaded', function() {
       // PRELOADER
       const preloader = document.getElementById('preloader');
-      window.addEventListener('load', () => {
-        setTimeout(() => preloader.classList.add('hidden'), 500);
-      });
+      window.addEventListener('load', () => { setTimeout(() => preloader.classList.add('hidden'), 500); });
       
-      // ===== SELETORES DE ELEMENTOS (Carrinho, etc.) =====
+      // ===== SELETORES GERAIS =====
       const productContainer = document.getElementById('productContainer');
       const cartIcon = document.getElementById('cartIcon');
       const cartCount = document.getElementById('cart-count');
@@ -464,135 +299,198 @@
       const closeCartBtn = document.getElementById('closeCartBtn');
       const cartItemsContainer = document.getElementById('cartItemsContainer');
       const cartTotalEl = document.getElementById('cartTotal');
+      const notification = document.getElementById('notification');
+
+      // ===== SELETORES DE BUSCA =====
+      const searchInput = document.getElementById('searchInput');
+      const searchButton = document.getElementById('searchButton');
+      const noResultsMessage = document.getElementById('no-results-message');
+      const allProducts = document.querySelectorAll('.product');
+
+      // ===== SELETORES DO CHECKOUT =====
       const checkoutBtn = document.getElementById('checkoutBtn');
       const checkoutModalOverlay = document.getElementById('checkoutModalOverlay');
       const closeCheckoutBtn = document.getElementById('closeCheckoutBtn');
+      const stepShipping = document.getElementById('step-shipping');
+      const stepPayment = document.getElementById('step-payment');
+      const stepConfirmation = document.getElementById('step-confirmation');
+      const customerNameInput = document.getElementById('customerName');
+      const customerAddressTextarea = document.getElementById('customerAddress');
+      const goToPaymentBtn = document.getElementById('goToPaymentBtn');
+      const backToShippingBtn = document.getElementById('backToShippingBtn');
+      const paymentOptions = document.querySelectorAll('.payment-option-btn');
+      const completeOrderBtn = document.getElementById('completeOrderBtn');
       const confirmOrderBtn = document.getElementById('confirmOrderBtn');
+      const pixDetailsContainer = document.getElementById('pix-details');
+      const copyPixBtn = document.getElementById('copyPixBtn');
+      const pixCodeInput = document.getElementById('pixCode');
+      const creditCardForm = document.getElementById('credit-card-form');
+      const cardNumberInput = document.getElementById('cardNumber');
+      const cardNameInput = document.getElementById('cardName');
+      const cardExpiryInput = document.getElementById('cardExpiry');
+      const cardCvvInput = document.getElementById('cardCvv');
 
-      // ===== SELETORES DO MENU NOVO =====
-      const menuToggle = document.getElementById('menuToggle');
-      const navLinks = document.getElementById('navLinks');
-
-      // ===== LÓGICA DO MENU MOBILE =====
-      menuToggle.addEventListener('click', () => {
-          navLinks.classList.toggle('active');
-      });
-      // Fecha o menu ao clicar em um link
-      navLinks.addEventListener('click', (e) => {
-          if (e.target.tagName === 'A') {
-              navLinks.classList.remove('active');
-          }
-      });
-
-      // ===== ESTADO DO CARRINHO =====
-      let cart = JSON.parse(localStorage.getItem('subzero_cart')) || [];
-
-      // ===== LÓGICA DO CARRINHO (Mantida) =====
-      const saveCart = () => localStorage.setItem('subzero_cart', JSON.stringify(cart));
-      const formatCurrency = value => `R$ ${value.toFixed(2).replace('.', ',')}`;
+      // ===== ESTADO DA APLICAÇÃO =====
+      let cart = [];
+      let selectedPaymentMethod = null;
       
-      const updateCartUI = () => {
-        cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+      // ===================================
+      // ===== NOTIFICAÇÃO =====
+      // ===================================
+      function showNotification(message) {
+        notification.textContent = message;
+        notification.classList.add('show');
+        setTimeout(() => { notification.classList.remove('show'); }, 3000);
+      }
+
+      // ===================================
+      // ===== LÓGICA DO CARRINHO =====
+      // ===================================
+      function updateCart() {
         cartItemsContainer.innerHTML = '';
         if (cart.length === 0) {
-            cartItemsContainer.innerHTML = `<div class="cart-empty-msg"><i class="fas fa-box-open"></i>Seu carrinho está vazio.</div>`;
-            checkoutBtn.style.display = 'none';
+          cartItemsContainer.innerHTML = `<div class="cart-empty-msg"><i class="fas fa-shopping-cart"></i>Seu carrinho está vazio.</div>`;
+          checkoutBtn.disabled = true;
         } else {
-            checkoutBtn.style.display = 'block';
-            cart.forEach(item => {
-                const itemEl = document.createElement('div');
-                itemEl.className = 'cart-item';
-                itemEl.innerHTML = `<img src="${item.image}" alt="${item.name}"><div class="cart-item-info"><h4>${item.name}</h4><div class="price">${formatCurrency(item.price)}</div></div><div class="cart-item-controls"><div class="quantity-controls"><button class="quantity-btn decrease-qty" data-id="${item.id}">-</button><span class="item-quantity">${item.quantity}</span><button class="quantity-btn increase-qty" data-id="${item.id}">+</button></div><button class="remove-item-btn" data-id="${item.id}"><i class="fas fa-trash-alt"></i> Remover</button></div>`;
-                cartItemsContainer.appendChild(itemEl);
-            });
+          cart.forEach(item => {
+            const cartItemEl = document.createElement('div');
+            cartItemEl.classList.add('cart-item');
+            cartItemEl.dataset.id = item.id;
+            cartItemEl.innerHTML = `
+              <img src="${item.image}" alt="${item.name}">
+              <div class="cart-item-info">
+                <h4>${item.name}</h4>
+                <div class="price">R$ ${item.price.toFixed(2).replace('.', ',')}</div>
+              </div>
+              <div class="cart-item-controls">
+                <div class="quantity-controls">
+                  <button class="quantity-btn decrease-qty">-</button>
+                  <span class="item-quantity">${item.quantity}</span>
+                  <button class="quantity-btn increase-qty">+</button>
+                </div>
+                <button class="remove-item-btn">Remover</button>
+              </div>`;
+            cartItemsContainer.appendChild(cartItemEl);
+          });
+          checkoutBtn.disabled = false;
         }
-        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        cartTotalEl.textContent = formatCurrency(total);
-      };
+        updateCartTotals();
+      }
 
-      const addToCart = (product) => {
-        const existingItem = cart.find(item => item.id === product.id);
-        if (existingItem) existingItem.quantity++;
-        else cart.push({ ...product, quantity: 1 });
-        saveCart(); updateCartUI();
-      };
+      function updateCartTotals() {
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        cartCount.textContent = totalItems;
+        cartTotalEl.textContent = `R$ ${totalPrice.toFixed(2).replace('.', ',')}`;
+      }
 
-      const changeQuantity = (productId, newQuantity) => {
-        const item = cart.find(item => item.id === productId);
-        if(item) {
-            item.quantity = newQuantity;
-            if (item.quantity <= 0) cart = cart.filter(i => i.id !== productId);
-            saveCart(); updateCartUI();
-        }
-      };
-      
       productContainer.addEventListener('click', e => {
-        if (e.target.closest('.add-to-cart-btn')) {
-          const productEl = e.target.closest('.product');
-          addToCart({ id: productEl.dataset.id, name: productEl.dataset.name, price: parseFloat(productEl.dataset.price), image: productEl.dataset.image });
+        const button = e.target.closest('.add-to-cart-btn');
+        if (button) {
+          const productEl = button.closest('.product');
+          const productId = productEl.dataset.id;
+          const productName = productEl.dataset.name;
+          const existingItem = cart.find(item => item.id === productId);
+          if (existingItem) {
+            existingItem.quantity++;
+          } else {
+            cart.push({ id: productId, name: productName, price: parseFloat(productEl.dataset.price), image: productEl.querySelector('img').src, quantity: 1 });
+          }
+          updateCart();
+          showNotification(`"${productName}" foi adicionado!`);
         }
       });
-      
+
       cartItemsContainer.addEventListener('click', e => {
-        const id = e.target.dataset.id;
-        if (!id) return;
-        const item = cart.find(i => i.id === id);
-        if (e.target.classList.contains('increase-qty')) changeQuantity(id, item.quantity + 1);
-        if (e.target.classList.contains('decrease-qty')) changeQuantity(id, item.quantity - 1);
-        if (e.target.closest('.remove-item-btn')) changeQuantity(id, 0);
+        const cartItemEl = e.target.closest('.cart-item');
+        if (!cartItemEl) return;
+        const productId = cartItemEl.dataset.id;
+        if (e.target.classList.contains('increase-qty')) {
+          cart.find(item => item.id === productId).quantity++;
+        } else if (e.target.classList.contains('decrease-qty')) {
+          const item = cart.find(item => item.id === productId);
+          if (item.quantity > 1) item.quantity--; else cart = cart.filter(i => i.id !== productId);
+        } else if (e.target.classList.contains('remove-item-btn')) {
+          cart = cart.filter(item => item.id !== productId);
+        }
+        updateCart();
       });
 
-      // Abrir/Fechar Modais
+      // ===============================================
+      // ===== BUSCA, MODAIS E CHECKOUT =====
+      // ===============================================
+      function filterProducts() {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        let productsFound = 0;
+        allProducts.forEach(product => {
+          const productName = product.dataset.name.toLowerCase();
+          const shouldShow = productName.includes(searchTerm);
+          product.style.display = shouldShow ? 'flex' : 'none';
+          if(shouldShow) productsFound++;
+        });
+        noResultsMessage.style.display = productsFound === 0 ? 'block' : 'none';
+      }
+      searchInput.addEventListener('keyup', filterProducts);
+      searchButton.addEventListener('click', (e) => { e.preventDefault(); filterProducts(); });
+
       cartIcon.addEventListener('click', () => cartModalOverlay.classList.add('active'));
       closeCartBtn.addEventListener('click', () => cartModalOverlay.classList.remove('active'));
-      cartModalOverlay.addEventListener('click', e => { if (e.target === cartModalOverlay) cartModalOverlay.classList.remove('active'); });
+      cartModalOverlay.addEventListener('click', (e) => { if (e.target === cartModalOverlay) cartModalOverlay.classList.remove('active'); });
+      
       checkoutBtn.addEventListener('click', () => { cartModalOverlay.classList.remove('active'); checkoutModalOverlay.classList.add('active'); });
       closeCheckoutBtn.addEventListener('click', () => checkoutModalOverlay.classList.remove('active'));
-      checkoutModalOverlay.addEventListener('click', e => { if (e.target === checkoutModalOverlay) checkoutModalOverlay.classList.remove('active'); });
+      
+      goToPaymentBtn.addEventListener('click', () => { stepShipping.classList.remove('active'); stepPayment.classList.add('active'); });
+      backToShippingBtn.addEventListener('click', () => { stepPayment.classList.remove('active'); stepShipping.classList.add('active'); });
 
-      // Lógica de Finalizar Pedido via WhatsApp
-      confirmOrderBtn.addEventListener('click', () => {
-        const name = document.getElementById('customerName').value.trim();
-        const address = document.getElementById('customerAddress').value.trim();
-        if (!name || !address) { alert('Por favor, preencha seu nome e endereço.'); return; }
-        const yourWhatsAppNumber = '5511999998888'; // <-- TROQUE PELO SEU NÚMERO
-        let message = `Olá, SUB-ZERO Shop! Gostaria de fazer um pedido:\n\n`;
-        cart.forEach(item => { message += `*${item.quantity}x* - ${item.name} (${formatCurrency(item.price * item.quantity)})\n`; });
-        const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-        message += `\n*Total do Pedido:* ${formatCurrency(total)}\n\n*Dados para Entrega:*\nNome: ${name}\nEndereço: ${address}`;
-        const whatsappUrl = `https://wa.me/${yourWhatsAppNumber}?text=${encodeURIComponent(message)}`;
-        window.open(whatsappUrl, '_blank');
-        cart = []; saveCart(); updateCartUI(); checkoutModalOverlay.classList.remove('active');
+      paymentOptions.forEach(button => {
+        button.addEventListener('click', () => {
+          paymentOptions.forEach(btn => btn.classList.remove('selected'));
+          button.classList.add('selected');
+          selectedPaymentMethod = button.dataset.paymentMethod;
+          pixDetailsContainer.classList.remove('visible');
+          creditCardForm.style.display = 'none';
+          completeOrderBtn.disabled = true;
+          if (selectedPaymentMethod === 'pix' || selectedPaymentMethod === 'boleto') {
+            if (selectedPaymentMethod === 'pix') pixDetailsContainer.classList.add('visible');
+            completeOrderBtn.disabled = false;
+          } else if (selectedPaymentMethod === 'credit-card') {
+            creditCardForm.style.display = 'block';
+            validateAllCardFields();
+          }
+        });
       });
 
-      // LÓGICA DE BUSCA E PAGINAÇÃO (Mantida)
-      const searchInput = document.getElementById('searchInput');
-      const allProducts = Array.from(productContainer.querySelectorAll('.product'));
-      const prevBtn = document.getElementById('prevBtn');
-      const nextBtn = document.getElementById('nextBtn');
-      const itemsPerPage = 6; let currentPage = 1;
-
-      function displayProducts() {
-        const searchTerm = searchInput.value.toLowerCase();
-        const filteredProducts = allProducts.filter(p => p.querySelector('h3').textContent.toLowerCase().includes(searchTerm));
-        const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
-        if (currentPage > totalPages) currentPage = totalPages || 1;
-        prevBtn.disabled = currentPage === 1;
-        nextBtn.disabled = currentPage >= totalPages;
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const productsToShow = filteredProducts.slice(startIndex, startIndex + itemsPerPage);
-        allProducts.forEach(p => p.style.display = productsToShow.includes(p) ? 'flex' : 'none');
+      function validateAllCardFields() {
+        const isCardNumberValid = cardNumberInput.value.length === 19;
+        const isCardNameValid = cardNameInput.value.trim().length > 5;
+        const isExpiryValid = /^(0[1-9]|1[0-2])\/\d{2}$/.test(cardExpiryInput.value);
+        const isCvvValid = cardCvvInput.value.length >= 3;
+        completeOrderBtn.disabled = !(isCardNumberValid && isCardNameValid && isExpiryValid && isCvvValid);
       }
-      searchInput.addEventListener('input', () => { currentPage = 1; displayProducts(); });
-      nextBtn.addEventListener('click', () => { if(currentPage < Math.ceil(allProducts.length/itemsPerPage)) { currentPage++; displayProducts(); }});
-      prevBtn.addEventListener('click', () => { if(currentPage > 1) { currentPage--; displayProducts(); }});
+      
+      cardNumberInput.addEventListener('input', (e) => { e.target.value = e.target.value.replace(/\D/g, '').replace(/(\d{4})/g, '$1 ').trim(); validateAllCardFields(); });
+      cardExpiryInput.addEventListener('input', (e) => { let v = e.target.value.replace(/\D/g, ''); if (v.length > 2) v=v.substring(0,2)+'/'+v.substring(2,4); e.target.value=v; validateAllCardFields(); });
+      cardNameInput.addEventListener('input', validateAllCardFields);
+      cardCvvInput.addEventListener('input', validateAllCardFields);
 
-      // INICIALIZAÇÃO
-      updateCartUI();
-      displayProducts();
+      completeOrderBtn.addEventListener('click', () => {
+          stepPayment.classList.remove('active');
+          stepConfirmation.classList.add('active');
+          setTimeout(() => {
+              document.getElementById('checkout-processing').style.display = 'none';
+              document.getElementById('checkout-success').style.display = 'block';
+              document.getElementById('finalName').textContent = customerNameInput.value;
+              document.getElementById('finalAddress').textContent = customerAddressTextarea.value;
+              const paymentMethodText = document.querySelector(`.payment-option-btn[data-payment-method="${selectedPaymentMethod}"] h4`).textContent;
+              document.getElementById('finalPaymentMethod').textContent = paymentMethodText;
+          }, 1500);
+      });
+
+      // Inicializar o carrinho na carga da página
+      updateCart();
     });
   </script>
-
 </body>
 </html>
 
